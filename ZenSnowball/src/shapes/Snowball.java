@@ -25,10 +25,12 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		public void draw(PApplet p){
-			//p.pushMatrix();
+			p.pushMatrix();
+			p.noStroke();
+			p.lights();
 			p.translate(x,y,z);
 			p.sphere(r);
-		
+			p.popMatrix();
 		}
 		
 		public void roll(){
