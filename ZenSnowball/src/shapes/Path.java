@@ -15,6 +15,16 @@ public class Path {
 		this.width = width;
 	}
 	
+	/**
+	 * Calls the act method for every obstacle on the path
+	 * @post All the obstacles on the path will move towards the positive z
+	 */
+	public void act() {
+		for(Obstacle rock : obstacles) {
+			rock.act();
+		}
+		//TODO: Generate new obstacles at appropriate time in appropriate place.
+	}
 	
 	
 }

@@ -1,15 +1,24 @@
 package shapes;
 
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
 import javax.media.j3d.Shape3D;
 import javax.vecmath.Point3d;
 
 import processing.core.PApplet;
 
 public class Snowball extends Shape3D implements Collidable{
-		private static final double GRAVITY = -3;
+		private static final double GRAVITY = 0.7;
 		private double xVelocity, yVelocity;
 		private static final double JUMP_STRENGTH = 15;
 		private float x, y, z, r;
+
+		private ArrayList<Shape> obstacles;
+		private boolean onASurface = true;
+
 		
 		/**
 		 * Creates Snowball centered at (x,y, z) with radius r
@@ -23,14 +32,12 @@ public class Snowball extends Shape3D implements Collidable{
 			this.y = y; 
 			this.z = z;
 			this.r = r;
-			System.out.println("works");
 			
 		}
 		
 		public void draw(PApplet p){
 			p.pushMatrix();
 			p.noStroke();
-			p.lights();
 			p.translate(x,y,z);
 			p.sphere(r);
 			p.popMatrix();
@@ -54,17 +61,25 @@ public class Snowball extends Shape3D implements Collidable{
 			
 		}
 		public void jump(){
-			yVelocity += JUMP_STRENGTH;
+			yVelocity -= JUMP_STRENGTH;
 		}
 		
-		public void act(){
-			System.out.println("Snowball act method");
-			x += xVelocity;
-			y += yVelocity;
+		public void act(ArrayList<Shape> obstacles) {
 			
-			if( y > 0) {
-				yVelocity -= GRAVITY;
+		}
+
+		public void act() {
+			y += yVelocity;
+			if(y < 300){
+				onASurface = false;
+				yVelocity += GRAVITY;
 			}
+			else if(y >= 300){
+				onASurface = true;
+				yVelocity = 0;
+				y = 300;
+			}
+			// TODO Auto-generated method stub
 			
 		}
 }

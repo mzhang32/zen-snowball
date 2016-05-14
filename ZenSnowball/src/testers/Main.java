@@ -11,23 +11,23 @@ public class Main extends JFrame{
 	
 	public Main(String title){
 		super(title);
-		
+		setSize(700, 700);
+		setMinimumSize(new Dimension(100,100));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GamePanel game = new GamePanel();
-		JFrame window = new JFrame();
-		window.setSize(700, 700);
-		window.setMinimumSize(new Dimension(100,100));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.add(game);		
-		game.run();
-		window.add(game.getDrawingSurface());
+		
+
+		add(game.getDrawingSurface());
 		//System.out.println("it works");
 
-		window.setVisible(true);
+		setVisible(true);
 	}
 	public static void main(String[]args)
 		{
-		//ds.draw();
+
 		Main main = new Main ("please work");
 		
 		}
+
+	
 }

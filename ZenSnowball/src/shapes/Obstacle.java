@@ -37,10 +37,11 @@ public class Obstacle extends Shape3D implements Collidable{
 	
 	public void draw(PApplet p) {
 		p.pushMatrix();
+		p.pushStyle();
 		p.noStroke();
-		p.lights();
 		p.translate(x,y,z);
-		p.box(100);
+		p.box(width, height, depth);
+		p.popStyle();
 		p.popMatrix();	
 	}
 
