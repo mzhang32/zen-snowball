@@ -6,7 +6,9 @@ import javax.vecmath.Point3d;
 import processing.core.PApplet;
 
 public class Snowball extends Shape3D implements Collidable{
-
+		private static final double GRAVITY = -3;
+		private double xVelocity, yVelocity;
+		private static final double JUMP_STRENGTH = 15;
 		float x, y, z, r;
 		
 		/**
@@ -22,6 +24,7 @@ public class Snowball extends Shape3D implements Collidable{
 			this.z = z;
 			this.r = r;
 			System.out.println("works");
+			
 		}
 		
 		public void draw(PApplet p){
@@ -44,5 +47,24 @@ public class Snowball extends Shape3D implements Collidable{
 		public boolean collides() {
 			// TODO Auto-generated method stub
 			return false;
+		}
+
+		public void move(float x, float y, float z) {
+			// TODO Auto-generated method stub
+			
+		}
+		public void jump(){
+			yVelocity += JUMP_STRENGTH;
+		}
+		
+		public void act(){
+			System.out.println("Snowball act method");
+			x += xVelocity;
+			y += yVelocity;
+			
+			if( y > 0) {
+				yVelocity -= GRAVITY;
+			}
+			
 		}
 }

@@ -13,5 +13,13 @@ public class Obstacle implements Collidable{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public void move(float x, float y, float z) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void act(){
+		
+	}
 	
 }
