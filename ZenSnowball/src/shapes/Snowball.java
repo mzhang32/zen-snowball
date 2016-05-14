@@ -9,7 +9,7 @@ public class Snowball extends Shape3D implements Collidable{
 		private static final double GRAVITY = -3;
 		private double xVelocity, yVelocity;
 		private static final double JUMP_STRENGTH = 15;
-		float x, y, z, r;
+		private float x, y, z, r;
 		
 		/**
 		 * Creates Snowball centered at (x,y, z) with radius r

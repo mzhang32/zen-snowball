@@ -109,10 +109,13 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			background(255);
 			stroke(0);
-			for(int x = 0; x < items.size(); x++){
-				items.get(x).draw(this);
-			}
-			snowball.act();
+//			for(int x = 0; x < items.size(); x++){
+//				items.get(x).draw(this);
+//			}
+//			snowball.act();
+			
+			translate(150, 150, 0);
+			box(300, 300, 50);
 			//System.out.println(" DrawingSurface works too");
 		}
 		
