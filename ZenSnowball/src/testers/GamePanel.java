@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
 		super();
 		
 		surface = new DrawingSurface();
-		snowball = new Snowball(300,300,0,30);
+		snowball = new Snowball(0,0,0,30);
 		surface.add(snowball);
 		
 		for(int x = 0; x < objects.size(); x++){
@@ -75,7 +75,9 @@ public class DrawingSurface extends PApplet{
 		
 		public void draw(){
 			//System.out.println("draw() was called");
-			colorMode(RGB);
+			pushMatrix();
+			translate(width/2, height/2 - height/10); //IMPORTANT translated everything
+			colorMode(RGB);		
 			background(255);
 			stroke(0);
 			lights();
@@ -85,6 +87,7 @@ public class DrawingSurface extends PApplet{
 			}
 			runOnce();
 			
+			popMatrix();
 			//System.out.println("draw() runs all the way through");
 		}	
 		public void keyPressed(){
