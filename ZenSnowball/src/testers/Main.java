@@ -12,9 +12,9 @@ public class Main extends JFrame{
 		setMinimumSize(new Dimension(100,100));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GameSurface game = new GameSurface();
-		add(game);
+		game.init();
 		//System.out.println("it works");
-
+		add(game);
 		setVisible(true);
 	}
 	public static void main(String[]args)
