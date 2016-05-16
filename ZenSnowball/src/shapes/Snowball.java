@@ -10,7 +10,7 @@ import javax.vecmath.Point3d;
 
 import processing.core.PApplet;
 
-public class Snowball extends Shape3D implements Collidable{
+public class Snowball extends Shape3D implements Collidable, Drawable{
 		private static final double GRAVITY = 0.7;
 		private double xVelocity, yVelocity;
 		private static final double JUMP_STRENGTH = 15;
@@ -22,9 +22,9 @@ public class Snowball extends Shape3D implements Collidable{
 		
 		/**
 		 * Creates Snowball centered at (x,y, z) with radius r
-		 * @param x x-coordinate of the Snowball's center
-		 * @param y y-coordinate of the Snowball's center
-		 * @param z z-coordinate of the Snowball's center
+		 * @param x x-coordinate of the Snowball's bottom point
+		 * @param y y-coordinate of the Snowball's bottom point
+		 * @param z z-coordinate of the Snowball's bottom point
 		 * @param r radius of the Snowball
 		 */
 		public Snowball(float x, float y, float z, float r){
@@ -36,11 +36,13 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		public void draw(PApplet p){
+			p.pushStyle();
 			p.pushMatrix();
 			p.noStroke();
-			p.translate(x,y,z);
+			p.translate(x,y-r/2,z);
 			p.sphere(r);
 			p.popMatrix();
+			p.popStyle();
 		}
 		
 		public void roll(){
@@ -70,14 +72,14 @@ public class Snowball extends Shape3D implements Collidable{
 
 		public void act() {
 			y += yVelocity;
-			if(y < 300){
+			if(y < 0){
 				onASurface = false;
 				yVelocity += GRAVITY;
 			}
-			else if(y >= 300){
+			else if(y >= 0){
 				onASurface = true;
 				yVelocity = 0;
-				y = 300;
+				y = 0;
 			}
 			// TODO Auto-generated method stub
 			

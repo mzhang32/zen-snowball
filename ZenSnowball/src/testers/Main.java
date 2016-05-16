@@ -23,11 +23,11 @@ public class Main extends JFrame{
 		setVisible(true);
 	}
 	public static void main(String[]args)
-		{
+	{
 
 		Main main = new Main ("please work");
 		
-		}
+	}
 
 	
 }

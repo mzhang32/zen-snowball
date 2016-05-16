@@ -19,7 +19,8 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	DrawingSurface surface;
 	Snowball snowball;
-	ArrayList<Collidable> objects = new ArrayList<Collidable>();
+	Path path;
+	ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
 
 	public GamePanel(){
 		super();
@@ -28,8 +29,11 @@ public class GamePanel extends JPanel implements Runnable{
 		snowball = new Snowball(0,0,0,30);
 		surface.add(snowball);
 		
-		for(int x = 0; x < objects.size(); x++){
-			surface.add(objects.get(x));
+		path = new Path(500, 1000);
+		surface.add(path);
+		
+		for(int x = 0; x < obstacles.size(); x++){
+			surface.add(obstacles.get(x));
 		}
 		
 		surface.init();
@@ -57,13 +61,13 @@ public class GamePanel extends JPanel implements Runnable{
 	
 public class DrawingSurface extends PApplet{
 		
-		ArrayList<Collidable> items = new ArrayList<Collidable>();
+		ArrayList<Drawable> items = new ArrayList<Drawable>();
 		
 		public DrawingSurface(){
 			super();
 		}
 		
-		public void add(Collidable c){
+		public void add(Drawable c){
 			items.add(c);
 		}
 		
@@ -76,18 +80,25 @@ public class DrawingSurface extends PApplet{
 		public void draw(){
 			//System.out.println("draw() was called");
 			pushMatrix();
-			translate(width/2, height/2 - height/10); //IMPORTANT translated everything
+			pushStyle();
+			translate(width/2, height-height/10, -50); //IMPORTANT translated everything
 			colorMode(RGB);		
 			background(255);
 			stroke(0);
 			lights();
+		    //box(100); //delete later
 			
+			popStyle();
 			for(int x = 0; x < items.size(); x++){
 				items.get(x).draw(this);
 			}
+			
+
+			popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
+			
 			runOnce();
 			
-			popMatrix();
+			
 			//System.out.println("draw() runs all the way through");
 		}	
 		public void keyPressed(){

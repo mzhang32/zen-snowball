@@ -10,7 +10,7 @@ import processing.core.PApplet;
  * @author mzhan
  * 
  */
-public class Obstacle extends Shape3D implements Collidable{
+public class Obstacle extends Shape3D implements Collidable, Drawable{
 
 	private float x, y, z;
 	private float width, height, depth;
@@ -51,7 +51,6 @@ public class Obstacle extends Shape3D implements Collidable{
 	}
 
 	public void move(float x, float y, float z) {
-	
 		
 	}
 	public void act(){
