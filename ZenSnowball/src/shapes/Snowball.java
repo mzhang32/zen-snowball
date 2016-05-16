@@ -81,6 +81,8 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 				yVelocity = 0;
 				y = 0;
 			}
+			
+			x +=xVelocity;
 			// TODO Auto-generated method stub
 			
 		}
