@@ -26,7 +26,7 @@ public class GameSurface extends PApplet{
 	private Path path;
 	private ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
 	
-	private boolean isGame;
+	private boolean isGame = true;
 
 	public GameSurface(){
 				
@@ -66,6 +66,7 @@ public class GameSurface extends PApplet{
 	
 	public void draw(){
 		//System.out.println("draw() was called");
+		if(isGame){
 		pushMatrix();
 		pushStyle();
 		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
@@ -80,11 +81,14 @@ public class GameSurface extends PApplet{
 			items.get(x).draw(this);
 		}
 		
-
+		
 		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
 		
 		runOnce();
-		
+		}
+		else{
+			
+		}
 		
 		//System.out.println("draw() runs all the way through");
 	}	
@@ -92,6 +96,10 @@ public class GameSurface extends PApplet{
 		if(keyCode == UP){
 			snowball.jump();
 		}
+		if(keyCode == LEFT)
+		snowball.moveLeft();
+		if(keyCode == RIGHT)
+			snowball.moveRight();
 
 	}
 	

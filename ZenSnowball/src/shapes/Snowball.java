@@ -14,6 +14,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		private static final double GRAVITY = 0.7;
 		private double xVelocity, yVelocity;
 		private static final double JUMP_STRENGTH = 15;
+		private static final double MOVE_SPEED = 5;
 		private float x, y, z, r;
 
 		private ArrayList<Shape> obstacles;
@@ -62,6 +63,15 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			// TODO Auto-generated method stub
 			
 		}
+		
+		public void moveLeft(){
+			xVelocity = -MOVE_SPEED;
+		}
+		
+		public void moveRight(){
+			xVelocity = MOVE_SPEED;
+		}
+		
 		public void jump(){
 			yVelocity -= JUMP_STRENGTH;
 		}
@@ -81,8 +91,12 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 				yVelocity = 0;
 				y = 0;
 			}
-			
 			x +=xVelocity;
+			if(x > 200 || x < -200){
+				xVelocity = 0;
+			}
+			
+			
 			// TODO Auto-generated method stub
 			
 		}
