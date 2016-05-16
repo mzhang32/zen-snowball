@@ -3,7 +3,7 @@ package shapes;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import testers.GamePanel;
+
 
 /**
  * This class handles creation of obstacles and moving them.
