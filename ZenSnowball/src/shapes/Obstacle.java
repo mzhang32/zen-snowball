@@ -16,7 +16,8 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	private float width, height, depth;
 	
 	/**
-	 * Creates an Obstacles with center coordinates at x, y, z, and dimensions width, height, depth
+	 * Creates an Obstacles with bottom-left-closest to viewer-corner coordinates at x, y, z, 
+	 * and dimensions width, height, depth.
 	 * 
 	 * @param x
 	 * @param y
@@ -38,8 +39,9 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	public void draw(PApplet p) {
 		p.pushMatrix();
 		p.pushStyle();
-		p.noStroke();
-		p.translate(x,y,z);
+		p.stroke(0);
+		p.noLights();
+		p.translate(x+width/2,y-height/2,z-depth/2); //Must translate to draw b/c processing drawing from center
 		p.box(width, height, depth);
 		p.popStyle();
 		p.popMatrix();	

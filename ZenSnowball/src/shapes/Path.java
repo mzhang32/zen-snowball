@@ -3,6 +3,7 @@ package shapes;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import testers.GamePanel;
 
 /**
  * This class handles creation of obstacles and moving them.
@@ -17,6 +18,10 @@ public class Path implements Drawable{
 	public Path(float width, float depth) {
 		this.width = width;
 		this.depth = depth;
+	}
+	
+	public float getWidth() {
+		return width;
 	}
 	
 	/**
@@ -36,13 +41,15 @@ public class Path implements Drawable{
 	 * @param p
 	 */
 	public void draw(PApplet p) {
-		System.out.println("Draw path called");
+		//System.out.println("Draw path called");
 		p.pushMatrix();
 		p.pushStyle();
 		p.stroke(0);
-		//p.line(0, 0, 0, 0, 100, 0);
 		p.line(-width/2, 0, 0, -width/2, 0, -depth);//need to change z-coord
 		p.line(width/2, 0, 0, width/2, 0, -depth);
+		p.line(-width/2, 0, 0, width/2, 0, 0); //delete later x axis
+		p.line(0, -1000, 0, 0, 100, 0);//delete later y axis
+		p.line(0, 0, 10, 0, 0, -1000);//delete later z axis
 		p.popMatrix();
 		p.popStyle();
 	}

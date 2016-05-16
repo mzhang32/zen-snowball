@@ -17,6 +17,9 @@ import shapes.*;
 
 public class GamePanel extends JPanel implements Runnable{
 	
+	public static final int Z_FROM_SCREEN = 50;
+	public static final int OBSTACLE_WIDTH = 100;
+	
 	DrawingSurface surface;
 	Snowball snowball;
 	Path path;
@@ -31,6 +34,9 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		path = new Path(500, 1000);
 		surface.add(path);
+		
+		//TESTING OBSTACLES
+		obstacles.add(new Obstacle(-path.getWidth()/2, 0, 0, 100, 100, 100));
 		
 		for(int x = 0; x < obstacles.size(); x++){
 			surface.add(obstacles.get(x));
@@ -81,7 +87,7 @@ public class DrawingSurface extends PApplet{
 			//System.out.println("draw() was called");
 			pushMatrix();
 			pushStyle();
-			translate(width/2, height-height/10, -50); //IMPORTANT translated everything
+			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 			colorMode(RGB);		
 			background(255);
 			stroke(0);
