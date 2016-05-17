@@ -91,9 +91,12 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 				yVelocity = 0;
 				y = 0;
 			}
-			x +=xVelocity;
-			if(x > 200 || x < -200){
+			
+			if(yVelocity == 0){
+				x +=xVelocity;
+				if(x > 200 || x < -200){
 				xVelocity = 0;
+				}
 			}
 			
 			
