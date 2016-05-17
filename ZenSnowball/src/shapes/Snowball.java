@@ -26,7 +26,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	private float x, y, z, r;
 
 	private ArrayList<Shape> obstacles;
-	private boolean onASurface = true;
+	private boolean onASurface = true, touchingSurface = false;
 
 	
 	/**
@@ -66,9 +66,25 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * 
 	 * @return true if the object collides with another object.
 	 */
-	public boolean collides() {
-		// TODO Auto-generated method stub
-		
+	public boolean collides(Obstacle o) {
+		double lowerXBound = o.getX();
+		double upperXBound = o.getX() + o.getWidth();
+		double lowerYBound = o.getY();
+		double upperYBound = o.getY()+o.getHeight();
+		double lowerZBound = o.getZ();
+		double upperZBound = o.getZ() + o.getDepth();
+		if(x+r > lowerXBound && x+r < upperXBound){
+			touchingSurface = true;
+			return true;
+		}
+		if(y + r >lowerYBound && y+r < upperYBound){
+			touchingSurface = true;
+			return true;
+		}
+		if(z+r > lowerZBound && z+r < upperZBound){
+			touchingSurface = true;
+			return true;
+		}
 		return false;
 	}
 
@@ -116,13 +132,17 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 				x +=xVelocity;
 				if(x > 200 || x < -200){
 					xVelocity = 0;
+					}
 				}
-			}
-			
-			
 			// TODO Auto-generated method stub
 			
 		}
+
+	@Override
+	public boolean collides() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 		
 	}
 

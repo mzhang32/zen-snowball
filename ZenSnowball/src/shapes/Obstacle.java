@@ -69,4 +69,23 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 		
 	}
 	
+	public double getX(){
+		return x;
+	}
+	public double getY(){
+		return y;
+	}
+	public double getZ(){
+		return z;
+	}
+	public double getWidth(){
+		return width;
+	}
+	public double getHeight(){
+		return height;
+	}
+	public double getDepth(){
+		return depth;
+	}
+	
 }

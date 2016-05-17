@@ -95,15 +95,25 @@ public class GameSurface extends PApplet{
 		//System.out.println("draw() was called");
 		if(isGame){
 			
-			
 		pushMatrix();
 		pushStyle();
-		fill(255);	
-		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 		colorMode(RGB);		
 		background(255);
 		stroke(0);
 		lights();
+		String back = "BACK";
+		fill(0);
+		textAlign(LEFT);
+		textSize(24);
+		text(back, 10, 10, 100, 75);  
+		if(mousePressed && overRect( 10, 10, 100, 75)){
+			isGame = false;
+			isStartScreen= true;
+			isInstructions = false;
+		}
+		fill(255);	
+		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
+		
 	    //box(100); //delete later
 		popStyle();
 		for(int x = 0; x < items.size(); x++){
@@ -111,7 +121,6 @@ public class GameSurface extends PApplet{
 		}
 		
 		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
-		
 		runOnce();
 		}
 		
