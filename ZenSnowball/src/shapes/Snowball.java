@@ -26,7 +26,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	private float x, y, z, r;
 
 	private ArrayList<Shape> obstacles;
-	private boolean onASurface = true, touchingSurface = false;
+	private boolean onASurface = true, touchingXSurface = false, touchingYSurface = false, touchingZSurface = false;
 
 	
 	/**
@@ -74,15 +74,15 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		double lowerZBound = o.getZ();
 		double upperZBound = o.getZ() + o.getDepth();
 		if(x+r > lowerXBound && x+r < upperXBound){
-			touchingSurface = true;
+			touchingXSurface = true;
 			return true;
 		}
 		if(y + r >lowerYBound && y+r < upperYBound){
-			touchingSurface = true;
+			touchingYSurface = true;
 			return true;
 		}
 		if(z+r > lowerZBound && z+r < upperZBound){
-			touchingSurface = true;
+			touchingZSurface = true;
 			return true;
 		}
 		return false;
