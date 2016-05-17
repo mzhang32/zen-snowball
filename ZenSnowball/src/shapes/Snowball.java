@@ -131,9 +131,14 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			
 			if(yVelocity == 0){
 				x +=xVelocity;
-				if(x > 200 || x < -200){
+				if(x >= 200 ){
 					xVelocity = 0;
+					x = 200;
 					}
+				if(x <= -200 ){
+						xVelocity = 0;
+						x = -200;
+						}
 				}
 			// TODO Auto-generated method stub
 			
