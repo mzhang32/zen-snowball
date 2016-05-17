@@ -7,8 +7,8 @@ import processing.core.PApplet;
 /**
  * This class represents the "rocks" the Snowball is not supposed to collide with.
  * 
- * @author mzhan
- * 
+ * @author Michelle Z. and Waveley Q.
+ * @version 05.16.2016
  */
 public class Obstacle extends Shape3D implements Collidable, Drawable{
 
@@ -19,12 +19,12 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	 * Creates an Obstacles with bottom-left-closest to viewer-corner coordinates at x, y, z, 
 	 * and dimensions width, height, depth.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param width
-	 * @param height
-	 * @param depth
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @param z the z coordinate
+	 * @param width the width of the obstacle
+	 * @param height the height of the obstacle
+	 * @param depth the depth of the obstacle
 	 */
 	public Obstacle(float x, float y, float z, float width, float height, float depth) {
 		this.x = x;
@@ -36,6 +36,11 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	}
 	
 	
+	/**
+	 *  Draws the obstacle as a rectangular prism.
+	 *  
+	 *  @param p the PApplet used to draw the obstacle.
+	 */
 	public void draw(PApplet p) {
 		p.pushMatrix();
 		p.pushStyle();
@@ -47,14 +52,19 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 		p.popMatrix();	
 	}
 
+	/**
+	 * Detects whether the object is colliding with another collidable.
+	 * 
+	 * @return true if the object collides with another object.
+	 */
 	public boolean collides() {
 
 		return false;
 	}
 
-	public void move(float x, float y, float z) {
-		
-	}
+	/**
+	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
+	 */
 	public void act(){
 		
 	}
