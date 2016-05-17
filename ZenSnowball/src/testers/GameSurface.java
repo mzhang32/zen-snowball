@@ -33,7 +33,7 @@ public class GameSurface extends PApplet{
 
 	private Snowball snowball;
 	private Path path;
-	private ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
+	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
 	
 	private boolean isGame = false;

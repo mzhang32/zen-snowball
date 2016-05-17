@@ -68,6 +68,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 */
 	public boolean collides() {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
