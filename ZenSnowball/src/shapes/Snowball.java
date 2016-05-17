@@ -10,94 +10,112 @@ import javax.vecmath.Point3d;
 
 import processing.core.PApplet;
 
+/**
+ * This class represent a snowball, a jumping and rolling object that interacts with obstacles.
+ * 
+ * @author Michelle Z. and Waveley Q.
+ * @version 05.16.2016
+ *
+ */
 public class Snowball extends Shape3D implements Collidable, Drawable{
-		private static final double GRAVITY = 0.7;
-		private double xVelocity, yVelocity;
-		private static final double JUMP_STRENGTH = 15;
-		private static final double MOVE_SPEED = 5;
-		private float x, y, z, r;
+		
+	private static final double GRAVITY = 0.7;
+	private double xVelocity, yVelocity;
+	private static final double JUMP_STRENGTH = 15;
+	private static final double MOVE_SPEED = 5;
+	private float x, y, z, r;
 
-		private ArrayList<Shape> obstacles;
-		private boolean onASurface = true;
+	private ArrayList<Shape> obstacles;
+	private boolean onASurface = true;
+
+	
+	/**
+	 * Creates Snowball centered at (x,y, z) with radius r
+	 * @param x x-coordinate of the Snowball's bottom point
+	 * @param y y-coordinate of the Snowball's bottom point
+	 * @param z z-coordinate of the Snowball's bottom point
+	 * @param r radius of the Snowball
+	 */
+	public Snowball(float x, float y, float z, float r){
+		this.x = x;
+		this.y = y; 
+		this.z = z;
+		this.r = r;
+		
+	}
+	
+	/**
+	 *  Draws the snowball.
+	 *  
+	 *  @param p the PApplet used to draw the obstacle.
+	 */
+	public void draw(PApplet p){
+		p.pushStyle();
+		p.pushMatrix();
+		p.noStroke();
+		p.translate(x,y-r/2,z);
+		p.sphere(r);
+		p.popMatrix();
+		p.popStyle();
+	}
+	
+
+
+	/**
+	 * Detects whether the object is colliding with another collidable.
+	 * 
+	 * @return true if the object collides with another object.
+	 */
+	public boolean collides() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	/**
+	 *  Decreases the snowball's velocity in the x direction by a set amount.
+	 */
+	public void moveLeft(){
+		xVelocity = -MOVE_SPEED;
+	}
+	
+	/**
+	 *  Increases the snowball's velocity in the x direction by a set amount.
+	 */
+	public void moveRight(){
+		xVelocity = MOVE_SPEED;
+	}
+	
+	/**
+	 * Increases the y velocity in the upward direction by a set amount.
+	 */
+	public void jump(){
+		yVelocity -= JUMP_STRENGTH;
+	}
+	
+	
+	/**
+	 * Gets called repeatedly to move the snowball according to the current velocities within the bounds of 
+	 * the game.
+	 * Also controls the snowball's size over time and handles collisions.
+	 */
+	public void act() {
+		y += yVelocity;
+		if(y < 0){
+			onASurface = false;
+			yVelocity += GRAVITY;
+		}
+		else if(y >= 0){
+			onASurface = true;
+			yVelocity = 0;
+			y = 0;
+		}
+		x +=xVelocity;
+		if(x > 200 || x < -200){
+			xVelocity = 0;
+		}
+		
 
 		
-		/**
-		 * Creates Snowball centered at (x,y, z) with radius r
-		 * @param x x-coordinate of the Snowball's bottom point
-		 * @param y y-coordinate of the Snowball's bottom point
-		 * @param z z-coordinate of the Snowball's bottom point
-		 * @param r radius of the Snowball
-		 */
-		public Snowball(float x, float y, float z, float r){
-			this.x = x;
-			this.y = y; 
-			this.z = z;
-			this.r = r;
-			
-		}
-		
-		public void draw(PApplet p){
-			p.pushStyle();
-			p.pushMatrix();
-			p.noStroke();
-			p.translate(x,y-r/2,z);
-			p.sphere(r);
-			p.popMatrix();
-			p.popStyle();
-		}
-		
-		public void roll(){
-			
-		}
-		
-		public Point3d getCenter(){
-			return new Point3d(x,y,z);
-		}
-
-		public boolean collides() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		public void move(float x, float y, float z) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		public void moveLeft(){
-			xVelocity = -MOVE_SPEED;
-		}
-		
-		public void moveRight(){
-			xVelocity = MOVE_SPEED;
-		}
-		
-		public void jump(){
-			yVelocity -= JUMP_STRENGTH;
-		}
-		
-		public void act(ArrayList<Shape> obstacles) {
-			
-		}
-
-		public void act() {
-			y += yVelocity;
-			if(y < 0){
-				onASurface = false;
-				yVelocity += GRAVITY;
-			}
-			else if(y >= 0){
-				onASurface = true;
-				yVelocity = 0;
-				y = 0;
-			}
-			x +=xVelocity;
-			if(x > 200 || x < -200){
-				xVelocity = 0;
-			}
-			
-			
-			// TODO Auto-generated method stub
-			
-		}
+	}
 }
