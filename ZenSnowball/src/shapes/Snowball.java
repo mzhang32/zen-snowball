@@ -121,6 +121,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			if(y < 0){
 				onASurface = false;
 				yVelocity += GRAVITY;
+				
 			}
 			else if(y >= 0){
 				onASurface = true;

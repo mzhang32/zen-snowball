@@ -94,7 +94,7 @@ public class GameSurface extends PApplet{
 	public void draw(){
 		//System.out.println("draw() was called");
 		if(isGame){
-			
+			int time = millis();
 		pushMatrix();
 		pushStyle();
 		colorMode(RGB);		
