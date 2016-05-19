@@ -13,13 +13,13 @@ Features List:
 	Must-Have features
 	-Sphere: Must be able to jump(y axis) and move side to side(x axis)
 	-Obstacles: Must generate boxes not too close/intersecting, scrolling surfaces
-	-Big snowballs that must be avoided
-	-Little snowballs that increase the size of our snowball
 	-Menu Window (Start Screen): Instructions, “Play” button, 
 	-Collision Detection between the sphere and the obstacles
 	-Scorekeeping abilities
 	
 Want-To-Have features
+	-Big snowballs that must be avoided
+	-Little snowballs that increase the size of our snowball
 	-Elevator Music
 	-Load/Save Option
 	-Death animation
@@ -35,15 +35,15 @@ Stretch Features:
 
 Class List:
 	-Snowball
+	-BigSnowball
+	-LittleSnowball
 	-Obstacle
+	-Path
 	-Drawable(interface)
 	-Collidable(interface)
 	-GameSurface
 	-Main
-	-Scoreboard
-	-Score
-	-Game
-	-ObstacleHolder for Scroll/Timer
+
 
 Package: 
 	-Shapes
