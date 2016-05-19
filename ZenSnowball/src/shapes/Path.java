@@ -32,12 +32,24 @@ public class Path implements Drawable{
 		obstacles.add(new Obstacle(-getWidth()/2, 0, 0, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(-getWidth()/6, 0, -200, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(getWidth()/6, 0, -600, getWidth()/3, 60, 60));	
+		obstacles.add(new Obstacle(getWidth()/6, 0, -800, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
 		addObstacles(o);
 	}
 	
 	public void generateObstacle(){
+		double x = Math.random()*6;
+		if(x >= 1){
+			if(-getWidth()/x > -getWidth()/2){
+				obstacles.add(new Obstacle((float)(-getWidth()/(x)), 0, -600, getWidth()/3, 60, 60));
+			}
+			else if (getWidth()/x < getWidth()/2){
+				obstacles.add(new Obstacle((float)(getWidth()/(x)), 0, -600, getWidth()/3, 60, 60));
 	
+				}
+			}
 	}
+		
 	/**
 	 * Returns the width of the path.
 	 * @return the width of the path.
@@ -61,8 +73,9 @@ public class Path implements Drawable{
 	public void act() {
 		for(int x = 0; x < obstacles.size(); x++) {
 			obstacles.get(x).act();
-			if(obstacles.get(x).getZ() >= 500){
+			if(obstacles.get(x).getZ() >= 250){
 				obstacles.remove(x);
+				generateObstacle();
 			}
 		}
 		//TODO: Generate new obstacles at appropriate time in appropriate place.

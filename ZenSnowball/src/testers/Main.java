@@ -16,7 +16,7 @@ public class Main extends JFrame{
 		add(game);
 		setVisible(true);
 	}
-	public static void main(String[]args)
+	public static void main(String[]args) 
 	{
 		Main main = new Main ("Zen Snowball");	
 	}

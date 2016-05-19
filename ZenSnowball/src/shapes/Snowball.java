@@ -111,6 +111,9 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		yVelocity -= JUMP_STRENGTH;
 	}
 	
+	public float getRadius(){
+		return r;
+	}
 	
 	/**
 	 * Gets called repeatedly to move the snowball according to the current velocities within the bounds of 
@@ -141,6 +144,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 						x = -path.getWidth()/2;
 						}
 				}
+			
 			// TODO Auto-generated method stub
 			
 		}
