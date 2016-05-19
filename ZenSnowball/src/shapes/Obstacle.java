@@ -1,6 +1,7 @@
 package shapes;
 
 import javax.media.j3d.BoundingBox;
+import javax.media.j3d.Bounds;
 import javax.media.j3d.Shape3D;
 import javax.vecmath.Point3d;
 
@@ -72,7 +73,7 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 
 	}
 	
-	public BoundingBox getBoundingBox() {
+	public Bounds getBounds() {
 		Point3d min = new Point3d(x, y-height, z-depth);
 		Point3d max = new Point3d(x+width, y, z);
 		return new BoundingBox(min, max);
