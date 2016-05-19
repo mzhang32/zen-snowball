@@ -1,9 +1,6 @@
 package shapes;
 
-import javax.media.j3d.BoundingBox;
-import javax.media.j3d.Bounds;
 import javax.media.j3d.Shape3D;
-import javax.vecmath.Point3d;
 
 import processing.core.PApplet;
 
@@ -14,7 +11,7 @@ import processing.core.PApplet;
  * @version 05.16.2016
  */
 public class Obstacle extends Shape3D implements Collidable, Drawable{
-	public static int score;
+public static int score;
 	private float x, y, z;
 	private float width, height, depth;
 	
@@ -60,8 +57,8 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	 * 
 	 * @return true if the object collides with another object.
 	 */
-	public boolean collides(Collidable other) {
-
+	public boolean collides() {
+		score ++;
 		return false;
 	}
 
@@ -69,14 +66,7 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
 	public void act(){
-		z+=10;
-
-	}
-	
-	public Bounds getBounds() {
-		Point3d min = new Point3d(x, y-height, z-depth);
-		Point3d max = new Point3d(x+width, y, z);
-		return new BoundingBox(min, max);
+		z += 10;
 	}
 	
 	public double getX(){
@@ -96,6 +86,13 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	}
 	public double getDepth(){
 		return depth;
+	}
+
+
+	@Override
+	public boolean collides(Collidable other) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

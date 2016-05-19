@@ -20,7 +20,7 @@ import processing.core.PApplet;
  *
  */
 public class Snowball extends Shape3D implements Collidable, Drawable{
-		
+		public static int score;
 	private static final double GRAVITY = 0.7;
 	private double xVelocity, yVelocity;
 	private static final double JUMP_STRENGTH = 15;
@@ -39,6 +39,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * @param r radius of the Snowball
 	 */
 	public Snowball(float x, float y, float z, float r){
+		score = 0;
 		this.x = x;
 		this.y = y; 
 		this.z = z;
@@ -131,6 +132,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		
 		for(Obstacle o : obs) {
 			if(this.collides(o)) {
+				score--;
 				System.out.println("Snowball is colliding with something");
 			}
 			else {
@@ -176,16 +178,23 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	
 	@Override
 	public boolean collides(Collidable other) {		
-		if(this.getBounds().intersect(other.getBounds()))
+		if(this.getBounds().intersect(other.getBounds())){
 			return true;
-		else
+			}
+		else{
 			return false;
+		}
 	}
 
 	@Override
 	public void act() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 		
 }

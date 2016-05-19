@@ -1,15 +1,15 @@
 package testers;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.AffineTransform;
-
-import javax.media.j3d.BranchGroup;
-import javax.swing.*;
+//import java.awt.event.KeyEvent;
+//import java.awt.event.KeyListener;
+//
+//import javax.swing.JPanel;
+//import java.awt.*;
+//import java.awt.event.*;
+//import java.awt.geom.AffineTransform;
+//
+//import javax.media.j3d.BranchGroup;
+//import javax.swing.*;
 
 import java.util.*;
 
@@ -33,6 +33,7 @@ public class GameSurface extends PApplet{
 	public static final int INIT_RADIUS = 30;
 
 	private Snowball snowball;
+	private BigSnowball bigsnowball;
 	private Path path;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
@@ -48,7 +49,8 @@ public class GameSurface extends PApplet{
 	public GameSurface(){
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
-
+		bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
+		items.add(bigsnowball);
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
@@ -60,7 +62,6 @@ public class GameSurface extends PApplet{
 //	}
 	public void restart(){
 		background(255);
-		
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
@@ -81,6 +82,7 @@ public class GameSurface extends PApplet{
 	 */
 	public void runOnce() {	 
 		snowball.act(path);
+		bigsnowball.act(path);
 		path.act();
 	}
 	
@@ -111,6 +113,12 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(24);
 			text(back, 10, 10, 100, 75);  
+			String score = "Score: " + snowball.score;
+			fill(0);
+			textAlign(RIGHT);
+			textSize(24);
+			text(score, 450, 10, 200, 75);  
+
 			if(mousePressed && overRect( 10, 10, 100, 75)){
 				isGame = false;
 				isStartScreen= true;
