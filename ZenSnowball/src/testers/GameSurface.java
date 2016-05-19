@@ -98,6 +98,7 @@ public class GameSurface extends PApplet{
 	 * Runs repeatedly to draw all the objects onto the screen.
 	 */
 	public void draw(){
+		background(255, 255, 255);
 		//System.out.println("draw() was called");
 		if(isGame){
 			int time = millis();
@@ -123,23 +124,36 @@ public class GameSurface extends PApplet{
 				isStartScreen= true;
 				isInstructions = false;
 				restart();
-
-				}
-		fill(255);	
-		pushMatrix();
-		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
+			}
+			
 		
-	    //box(100); //delete later
-		popStyle();
-		for(int x = 0; x < items.size(); x++){
-			items.get(x).draw(this);
-		}
-		for(int x = 0; x < obstacles.size(); x++){
-			obstacles.get(x).draw(this);
-		}
-		popMatrix(); 
-		runOnce();
-			//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
+			fill(255);	
+			pushMatrix();
+			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
+			
+		    //box(100); //delete later
+			popStyle();
+			for(int x = 0; x < items.size(); x++){
+				items.get(x).draw(this);
+			}
+			for(int x = 0; x < obstacles.size(); x++){
+				obstacles.get(x).draw(this);
+			}
+			popMatrix(); 
+			runOnce();
+			
+			if(snowball.isColliding()) {
+				System.out.println("should print to screen");				
+				pushStyle();
+				textSize(30);
+				textAlign(CENTER);
+				fill(255, 0, 0);
+				text("Oops", width/2, height/2);
+				popStyle();
+			}	
+
+
+				//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){

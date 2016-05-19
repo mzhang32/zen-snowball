@@ -26,6 +26,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
 	private float x, y, z, r;
+	private boolean isColliding;
 
 	private ArrayList<Shape> obstacles;
 	private boolean onASurface = true, touchingXSurface = false, touchingYSurface = false, touchingZSurface = false;
@@ -44,10 +45,11 @@ public class Snowball extends Shape3D implements Collidable{
 		this.y = y; 
 		this.z = z;
 		this.r = r;
-		
+		isColliding = false;
 		
 	}
 	
+
 	/**
 	 *  Draws the snowball.
 	 *  
@@ -56,9 +58,10 @@ public class Snowball extends Shape3D implements Collidable{
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();
+		p.fill(255, 255, 255);
 		p.noStroke();
-		p.translate(x,y-r/2,z);
-		p.sphere(r);
+		p.translate(x,y-r/2,z);				
+		p.sphere(r);	
 		p.popMatrix();
 		p.popStyle();
 	}
@@ -112,25 +115,29 @@ public class Snowball extends Shape3D implements Collidable{
 		
 		ArrayList<Obstacle> obs = path.getObstacles();
 		
-		for(Obstacle o : obs) {
+		for(int i = 0; i < obs.size(); i++) {
+			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
 				score--;
-				//System.out.println("Snowball is colliding with something");
+				System.out.println("Snowball is colliding with something");
+				isColliding = true;
+				break;
 			}
-			else {
-				//System.out.println(obs);
-				//System.out.println("No collision");
+			else if(i == obs.size() - 1) {
+				isColliding = false;
 			}
 		}
 		
+		if(isColliding) { //does not allow snowball to fall into obstacle from above
+			yVelocity = 0;
+		}
+		
 		y += yVelocity;
-		if(y < 0){
-			onASurface = false;
-			yVelocity += GRAVITY;
-				
+		if(y < 0){		
+			yVelocity += GRAVITY;		
 		}
 		else if(y >= 0){
-			onASurface = true;
+			
 			yVelocity = 0;
 			y = 0;
 		}		
@@ -170,6 +177,12 @@ public class Snowball extends Shape3D implements Collidable{
 	public boolean onSurface(){
 		return onASurface;
 	}
+
+
+	public boolean isColliding() {
+		return isColliding;
+	}
+	
 	public void act() {
 		// TODO Auto-generated method stub
 		

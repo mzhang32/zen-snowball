@@ -105,7 +105,7 @@ public class Path implements Drawable{
 		}
 
 	}
-		//TODO: Generate new obstacles at appropriate time in appropriate place.
+		
 	
 	public void scroll(){
 		
