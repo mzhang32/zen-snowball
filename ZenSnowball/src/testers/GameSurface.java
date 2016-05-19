@@ -49,14 +49,6 @@ public class GameSurface extends PApplet{
 				
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
-		//TESTING OBSTACLES
-		obstacles.add(new Obstacle(-path.getWidth()/2, 0, 0, path.getWidth()/3, INIT_RADIUS*2, INIT_RADIUS*2));
-		obstacles.add(new Obstacle(-path.getWidth()/6, 0, -200, path.getWidth()/3, INIT_RADIUS*2, INIT_RADIUS*2));
-		obstacles.add(new Obstacle(path.getWidth()/6, 0, -600, path.getWidth()/3, INIT_RADIUS*2, INIT_RADIUS*2));
-		
-		for(int x = 0; x < obstacles.size(); x++){
-			add(obstacles.get(x));
-		}
 
 		path = new Path(500, 1000);
 		add(path);		
