@@ -115,30 +115,29 @@ public class Snowball extends Shape3D implements Collidable{
 		
 		ArrayList<Obstacle> obs = path.getObstacles();
 		
-		for(Obstacle o : obs) {
+		for(int i = 0; i < obs.size(); i++) {
+			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
 				score--;
 				System.out.println("Snowball is colliding with something");
 				isColliding = true;
 				break;
-				//System.out.println("Snowball is colliding with something");
-
 			}
-			else {
-				//System.out.println(obs);
-				//System.out.println("No collision");
-				//isColliding = false;
+			else if(i == obs.size() - 1) {
+				isColliding = false;
 			}
 		}
 		
+		if(isColliding) { //does not allow snowball to fall into obstacle from above
+			yVelocity = 0;
+		}
+		
 		y += yVelocity;
-		if(y < 0){
-			onASurface = false;
-			yVelocity += GRAVITY;
-				
+		if(y < 0){		
+			yVelocity += GRAVITY;		
 		}
 		else if(y >= 0){
-			onASurface = true;
+			
 			yVelocity = 0;
 			y = 0;
 		}		
