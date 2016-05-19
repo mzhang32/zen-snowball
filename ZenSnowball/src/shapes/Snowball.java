@@ -100,6 +100,8 @@ public class Snowball extends Shape3D implements Collidable{
 		yVelocity -= JUMP_STRENGTH;
 	}
 	
+	
+	
 	public float getRadius(){
 		return r;
 	}
@@ -119,6 +121,8 @@ public class Snowball extends Shape3D implements Collidable{
 				System.out.println("Snowball is colliding with something");
 				isColliding = true;
 				break;
+				//System.out.println("Snowball is colliding with something");
+
 			}
 			else {
 				//System.out.println(obs);
@@ -172,17 +176,17 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 	}
 
+
 	public boolean isColliding() {
 		return isColliding;
 	}
 	
-	@Override
 	public void act() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public double getZ() {
+	public double getY() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

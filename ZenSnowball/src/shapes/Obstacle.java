@@ -89,7 +89,6 @@ public class Obstacle extends Shape3D implements Collidable{
 	}
 
 
-	@Override
 	public boolean collides(Collidable other) {
 		// TODO Auto-generated method stub
 		return false;

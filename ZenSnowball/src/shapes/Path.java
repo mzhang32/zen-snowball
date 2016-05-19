@@ -29,15 +29,15 @@ public class Path implements Drawable{
 //		o.add(new Obstacle(-getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
 //		o.add(new Obstacle(-getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
 		//o.add(new Obstacle((float)(Math.random()*6)*getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
-		obstacles.add(new Obstacle(-getWidth()/2, 0, 0, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -600, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(getWidth()/6, 0, -600, getWidth()/3, 60, 60));	
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -400, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -200, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(getWidth()/6, 0, -800, getWidth()/3, 60, 60));	
 		obstacles.add(new Obstacle(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -1000, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -1200, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -1800, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(getWidth()/6, 0, -1600, getWidth()/3, 60, 60));	
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
 		addObstacles(o);
 	}
 	
@@ -100,7 +100,7 @@ public class Path implements Drawable{
 				obstacles.remove(x);									
 			}	
 			if(obstacles.size() < 9)
-				generateObstacle(-1600);
+				generateObstacle(-2400);
 
 		}
 
