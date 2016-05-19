@@ -61,35 +61,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		p.popMatrix();
 		p.popStyle();
 	}
-	
 
-
-	/**
-	 * Detects whether the object is colliding with another collidable.
-	 * 
-	 * @return true if the object collides with another object.
-	 */
-	public boolean collides(Obstacle o) {
-		double lowerXBound = o.getX();
-		double upperXBound = o.getX() + o.getWidth();
-		double lowerYBound = o.getY();
-		double upperYBound = o.getY()+o.getHeight();
-		double lowerZBound = o.getZ();
-		double upperZBound = o.getZ() + o.getDepth();
-		if(x+r > lowerXBound && x+r < upperXBound){
-			touchingXSurface = true;
-			return true;
-		}
-		if(y + r >lowerYBound && y+r < upperYBound){
-			touchingYSurface = true;
-			return true;
-		}
-		if(z+r > lowerZBound && z+r < upperZBound){
-			touchingZSurface = true;
-			return true;
-		}
-		return false;
-	}
 
 
 	/**
@@ -122,34 +94,45 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * the game.
 	 * Also controls the snowball's size over time and handles collisions.
 	 */
-		public void act(Path path) {
-			y += yVelocity;
-			if(y < 0){
-				onASurface = false;
-				yVelocity += GRAVITY;
-				
+	public void act(Path path) {
+		
+		ArrayList<Obstacle> obs = path.getObstacles();
+		
+		for(Obstacle o : obs) {
+			if(this.collides(o)) {
+				System.out.println("Snowball is colliding with something");
 			}
-			else if(y >= 0){
-				onASurface = true;
-				yVelocity = 0;
-				y = 0;
+			else {
+				//System.out.println(obs);
+				//System.out.println("No collision");
 			}
-			
-			if(yVelocity == 0){
-				x +=xVelocity;
-				if(x >= path.getWidth()/2 ){
-					xVelocity = 0;
-					x = path.getWidth()/2;
-					}
-				if(x <= -path.getWidth()/2 ){
-						xVelocity = 0;
-						x = -path.getWidth()/2;
-						}
-				}
-			
-			// TODO Auto-generated method stub
-			
 		}
+		
+		y += yVelocity;
+		if(y < 0){
+			onASurface = false;
+			yVelocity += GRAVITY;
+				
+		}
+		else if(y >= 0){
+			onASurface = true;
+			yVelocity = 0;
+			y = 0;
+		}		
+		if(yVelocity == 0){
+			x +=xVelocity;
+			if(x >= path.getWidth()/2 ){
+				xVelocity = 0;
+				x = path.getWidth()/2;
+			}
+			if(x <= -path.getWidth()/2 ){
+				xVelocity = 0;
+				x = -path.getWidth()/2;
+			}
+		}
+			
+			
+	}
 		
 	/**
 	 * 
@@ -162,7 +145,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	
 	@Override
 	public boolean collides(Collidable other) {		
-		if(getBounds().intersect(other.getBounds()))
+		if(this.getBounds().intersect(other.getBounds()))
 			return true;
 		else
 			return false;
