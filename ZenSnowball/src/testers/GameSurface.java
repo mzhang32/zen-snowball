@@ -33,7 +33,7 @@ public class GameSurface extends PApplet{
 	public static final int INIT_RADIUS = 30;
 
 	private Snowball snowball;
-	private BigSnowball bigsnowball;
+	//private BigSnowball bigsnowball;
 	private Path path;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
@@ -49,8 +49,8 @@ public class GameSurface extends PApplet{
 	public GameSurface(){
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
-		bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
-		items.add(bigsnowball);
+		//bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
+		//items.add(bigsnowball);
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
@@ -82,7 +82,7 @@ public class GameSurface extends PApplet{
 	 */
 	public void runOnce() {	 
 		snowball.act(path);
-		bigsnowball.act(path);
+		//bigsnowball.act(path);
 		path.act();
 	}
 	
