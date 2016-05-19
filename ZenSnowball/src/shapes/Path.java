@@ -25,8 +25,31 @@ public class Path implements Drawable{
 	public Path(float width, float depth) {
 		this.width = width;
 		this.depth = depth;
+		ArrayList<Obstacle> o = new ArrayList<Obstacle>();
+//		o.add(new Obstacle(-getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
+//		o.add(new Obstacle(-getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
+		//o.add(new Obstacle((float)(Math.random()*6)*getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
+		obstacles.add(new Obstacle(-getWidth()/2, 0, 0, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -200, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(getWidth()/6, 0, -600, getWidth()/3, 60, 60));	
+		obstacles.add(new Obstacle(getWidth()/6, 0, -800, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
+		addObstacles(o);
 	}
 	
+	public void generateObstacle(){
+		double x = Math.random()*6;
+		if(x >= 1){
+			if(-getWidth()/x > -getWidth()/2){
+				obstacles.add(new Obstacle((float)(-getWidth()/(x)), 0, -600, getWidth()/3, 60, 60));
+			}
+			else if (getWidth()/x < getWidth()/2){
+				obstacles.add(new Obstacle((float)(getWidth()/(x)), 0, -600, getWidth()/3, 60, 60));
+	
+				}
+			}
+	}
+		
 	/**
 	 * Returns the width of the path.
 	 * @return the width of the path.
@@ -35,17 +58,31 @@ public class Path implements Drawable{
 		return width;
 	}
 	
+	public ArrayList<Obstacle> getObstacles(){
+		return obstacles;
+	}
+	public void addObstacles(ArrayList<Obstacle> o){
+		for(int x = 0; x < o.size(); x++){
+		obstacles.add(o.get(x));
+	}
+	}
 	/**
 	 * Calls the act method for every obstacle on the path
 	 * @post All the obstacles on the path will move towards the positive z
 	 */
 	public void act() {
-		for(Obstacle rock : obstacles) {
-			rock.act();
+		for(int x = 0; x < obstacles.size(); x++) {
+			obstacles.get(x).act();
+			if(obstacles.get(x).getZ() >= 250){
+				obstacles.remove(x);
+				generateObstacle();
+			}
 		}
 		//TODO: Generate new obstacles at appropriate time in appropriate place.
 	}
-	
+	public void scroll(){
+		
+	}
 	/**
 	 *  Draws the path.
 	 *  

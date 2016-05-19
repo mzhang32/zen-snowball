@@ -36,7 +36,7 @@ public class GameSurface extends PApplet{
 	private Path path;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
-	
+
 	private boolean isGame = false;
 	private boolean isStartScreen = true;
 	private boolean isInstructions = false;
@@ -49,10 +49,6 @@ public class GameSurface extends PApplet{
 				
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
-		
-		path = new Path(500, 1000);
-		add(path);
-		
 		//TESTING OBSTACLES
 		obstacles.add(new Obstacle(-path.getWidth()/2, 0, 0, path.getWidth()/3, INIT_RADIUS*2, INIT_RADIUS*2));
 		obstacles.add(new Obstacle(-path.getWidth()/6, 0, -200, path.getWidth()/3, INIT_RADIUS*2, INIT_RADIUS*2));
@@ -61,8 +57,11 @@ public class GameSurface extends PApplet{
 		for(int x = 0; x < obstacles.size(); x++){
 			add(obstacles.get(x));
 		}
-		
-		
+
+		path = new Path(500, 1000);
+		add(path);		
+		obstacles = path.getObstacles();
+
 	}
 	
 	/**
@@ -78,7 +77,8 @@ public class GameSurface extends PApplet{
 	 * Calls the act methods of all the game objects once.
 	 */
 	public void runOnce() {	 
-		snowball.act();	
+		snowball.act(path);
+		path.act();
 	    
 	}
 	
@@ -121,6 +121,9 @@ public class GameSurface extends PApplet{
 		popStyle();
 		for(int x = 0; x < items.size(); x++){
 			items.get(x).draw(this);
+		}
+		for(int x = 0; x < obstacles.size(); x++){
+			obstacles.get(x).draw(this);
 		}
 		
 		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
@@ -198,6 +201,7 @@ public class GameSurface extends PApplet{
 			snowball.moveRight();
 
 	}
+	
 	private boolean overRect(int x, int y, int width, int height)  {
 		  if (mouseX >= x && mouseX <= x+width && 
 		      mouseY >= y && mouseY <= y+height) {
@@ -205,6 +209,6 @@ public class GameSurface extends PApplet{
 		  } else {
 		    return false;
 		  }
-		}
+	}
 	
 }

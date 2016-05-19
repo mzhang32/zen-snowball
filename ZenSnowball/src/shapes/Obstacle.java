@@ -13,7 +13,7 @@ import processing.core.PApplet;
  * @version 05.16.2016
  */
 public class Obstacle extends Shape3D implements Collidable, Drawable{
-
+	public static int score;
 	private float x, y, z;
 	private float width, height, depth;
 	
@@ -47,7 +47,7 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 		p.pushMatrix();
 		p.pushStyle();
 		p.stroke(0);
-		p.noLights();
+		p.lights();
 		p.translate(x+width/2,y-height/2,z-depth/2); //Must translate to draw b/c processing drawing from center
 		p.box(width, height, depth);
 		p.popStyle();
@@ -68,7 +68,8 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
 	public void act(){
-		
+		z+=2;
+
 	}
 	
 	public BoundingBox getBoundingBox() {
