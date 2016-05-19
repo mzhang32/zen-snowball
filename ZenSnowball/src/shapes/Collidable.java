@@ -24,7 +24,7 @@ public interface Collidable extends Drawable{
 	 * 
 	 * @return
 	 */
-	Bounds getBounds();
+	public Bounds getBoundingShape();
 	
 	/**
 	 * Gets called repeatedly. Checks for collisions and acts accordingly.

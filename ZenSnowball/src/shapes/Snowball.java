@@ -19,8 +19,8 @@ import processing.core.PApplet;
  * @version 05.16.2016
  *
  */
-public class Snowball extends Shape3D implements Collidable, Drawable{
-		public static int score;
+public class Snowball extends Shape3D implements Collidable{
+	public static int score;
 	private static final double GRAVITY = 0.7;
 	private double xVelocity, yVelocity;
 	private static final double JUMP_STRENGTH = 15;
@@ -117,7 +117,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			}
 			else {
 				//System.out.println(obs);
-				//System.out.println("No collision");
+				System.out.println("No collision");
 			}
 		}
 		
@@ -151,16 +151,16 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * 
 	 * @return A bounding sphere.
 	 */
-	public BoundingSphere getBounds() {
+	public Bounds getBoundingShape() {
 		Point3d center = new Point3d(x, y, z);
 		return new BoundingSphere(center, r);
 	}
 	
 	@Override
 	public boolean collides(Collidable other) {		
-		if(this.getBounds().intersect(other.getBounds())){
+		if(this.getBoundingShape().intersect(other.getBoundingShape())){
 			return true;
-			}
+		}
 		else{
 			return false;
 		}

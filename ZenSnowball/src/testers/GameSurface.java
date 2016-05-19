@@ -126,22 +126,22 @@ public class GameSurface extends PApplet{
 				isStartScreen= true;
 				isInstructions = false;
 				restart();
-				}
-		fill(255);	
-		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
-		
-	    //box(100); //delete later
-		popStyle();
-		for(int x = 0; x < items.size(); x++){
-			items.get(x).draw(this);
-		}
-		for(int x = 0; x < obstacles.size(); x++){
-			obstacles.get(x).draw(this);
-		}
-		
-		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
-		runOnce();
-		System.out.println("Size of ArrayList obstacles: " + obstacles.size());
+			}
+			fill(255);	
+			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
+			
+		    //box(100); //delete later
+			popStyle();
+			for(int x = 0; x < items.size(); x++){
+				items.get(x).draw(this);
+			}
+			for(int x = 0; x < obstacles.size(); x++){
+				obstacles.get(x).draw(this);
+			}
+			
+			popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
+			runOnce();
+			//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){
