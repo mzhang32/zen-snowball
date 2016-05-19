@@ -117,7 +117,7 @@ public class Snowball extends Shape3D implements Collidable{
 			}
 			else {
 				//System.out.println(obs);
-				System.out.println("No collision");
+				//System.out.println("No collision");
 			}
 		}
 		

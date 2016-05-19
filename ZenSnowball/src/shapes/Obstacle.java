@@ -55,15 +55,6 @@ public class Obstacle extends Shape3D implements Collidable{
 		p.popMatrix();	
 	}
 
-	/**
-	 * Detects whether the object is colliding with another collidable.
-	 * 
-	 * @return true if the object collides with another object.
-	 */
-	public boolean collides() {
-		score ++;
-		return false;
-	}
 
 	/**
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
