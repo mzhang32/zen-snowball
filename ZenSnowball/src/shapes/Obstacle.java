@@ -66,6 +66,7 @@ public class Obstacle extends Shape3D implements Collidable, Drawable{
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
 	public void act(){
+		z++;
 		
 	}
 	

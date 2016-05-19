@@ -13,7 +13,6 @@ public class Main extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GameSurface game = new GameSurface();
 		game.init();
-		//System.out.println("it works");
 		add(game);
 		setVisible(true);
 	}

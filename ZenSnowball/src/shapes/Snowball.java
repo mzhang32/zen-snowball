@@ -42,6 +42,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		this.z = z;
 		this.r = r;
 		
+		
 	}
 	
 	/**
@@ -116,7 +117,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * the game.
 	 * Also controls the snowball's size over time and handles collisions.
 	 */
-		public void act() {
+		public void act(Path path) {
 			y += yVelocity;
 			if(y < 0){
 				onASurface = false;
@@ -131,13 +132,13 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			
 			if(yVelocity == 0){
 				x +=xVelocity;
-				if(x >= 200 ){
+				if(x >= path.getWidth()/2 ){
 					xVelocity = 0;
-					x = 200;
+					x = path.getWidth()/2;
 					}
-				if(x <= -200 ){
+				if(x <= -path.getWidth()/2 ){
 						xVelocity = 0;
-						x = -200;
+						x = -path.getWidth()/2;
 						}
 				}
 			// TODO Auto-generated method stub
@@ -148,6 +149,12 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	public boolean collides() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
 	}
 		
 	}
