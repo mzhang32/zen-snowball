@@ -37,14 +37,14 @@ public class Path implements Drawable{
 		addObstacles(o);
 	}
 	
-	public void generateObstacle(){
+	public void generateObstacle(float z){
 		double x = Math.random()*6;
 		if(x >= 1){
 			if(-getWidth()/x > -getWidth()/2){
-				obstacles.add(new Obstacle((float)(-getWidth()/(x)), 0, -1000, getWidth()/3, 60, 60));
+				obstacles.add(new Obstacle((float)(-getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
 			}
 			else if (getWidth()/x < getWidth()/2){
-				obstacles.add(new Obstacle((float)(getWidth()/(x)), 0, -1000, getWidth()/3, 60, 60));
+				obstacles.add(new Obstacle((float)(getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
 	
 				}
 			}
@@ -73,10 +73,18 @@ public class Path implements Drawable{
 	public void act() {
 		for(int x = 0; x < obstacles.size(); x++) {
 			obstacles.get(x).act();
-			if(obstacles.get(x).getZ() >= 250){
-				obstacles.remove(x);
-				generateObstacle();
+			if(obstacles.get(x).getZ() == -50){
+				
+				generateObstacle(-1000);
+				
+				if(obstacles.get(x).getZ() >= 250){
+					
+					obstacles.remove(x);				
+					
+				}
+
 			}
+
 		}
 		//TODO: Generate new obstacles at appropriate time in appropriate place.
 	}
