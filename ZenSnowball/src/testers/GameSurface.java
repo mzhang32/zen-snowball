@@ -31,7 +31,7 @@ public class GameSurface extends PApplet{
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
 	public static final int INIT_RADIUS = 30;
-	private int jumpCount = 3;
+	private int jumpCount = 2;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
@@ -205,29 +205,24 @@ public class GameSurface extends PApplet{
 	 * Handles key presses.
 	 */
 	public void keyPressed(){
-		
 		if(prevKeyCode() == UP){
 			jumpCount--;
 		}
-		
 		if(keyCode == UP && jumpCount > 0){
-			jumpCount --;
 			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();
 		}
-		
-		if(snowball.getY() == 0){
-			jumpCount = 3;
-			}
-		
+		if(snowball.onSurface()){
+			jumpCount = 2;
+		}
 		if(keyCode == LEFT){
-			snowball.moveLeft();
-			jumpCount = 3;
+		snowball.moveLeft();
+		jumpCount = 2;
 		}
 		
 		if(keyCode == RIGHT){
 			snowball.moveRight();
-			jumpCount = 3;
+			jumpCount = 2;
 		}
 	}
 

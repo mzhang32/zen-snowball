@@ -167,7 +167,9 @@ public class Snowball extends Shape3D implements Collidable{
 			return false;
 		}
 	}
-
+	public boolean onSurface(){
+		return onASurface;
+	}
 	public void act() {
 		// TODO Auto-generated method stub
 		
