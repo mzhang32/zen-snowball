@@ -1,6 +1,9 @@
 package shapes;
 
 import javax.media.j3d.Shape3D;
+import javax.vecmath.Point3d;
+import javax.media.j3d.Bounds;
+import javax.media.j3d.BoundingBox;
 
 import processing.core.PApplet;
 
@@ -10,8 +13,8 @@ import processing.core.PApplet;
  * @author Michelle Z. and Waveley Q.
  * @version 05.16.2016
  */
-public class Obstacle extends Shape3D implements Collidable, Drawable{
-public static int score;
+public class Obstacle extends Shape3D implements Collidable{
+	public static int score;
 	private float x, y, z;
 	private float width, height, depth;
 	
@@ -52,12 +55,18 @@ public static int score;
 		p.popMatrix();	
 	}
 
-	
+
 	/**
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
 	public void act(){
 		z += 10;
+	}
+	
+	public Bounds getBoundingShape() {
+		Point3d min = new Point3d(x, y-height, z-depth);
+		Point3d max = new Point3d(x + width, y, z);
+		return new BoundingBox(min, max);
 	}
 	
 	public double getX(){

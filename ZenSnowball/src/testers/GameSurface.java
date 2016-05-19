@@ -31,7 +31,7 @@ public class GameSurface extends PApplet{
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
 	public static final int INIT_RADIUS = 30;
-
+	private int jumpCount = 3;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
@@ -49,6 +49,10 @@ public class GameSurface extends PApplet{
 	public GameSurface(){
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
+
+		//bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
+		//items.add(bigsnowball);
+
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
@@ -113,14 +117,16 @@ public class GameSurface extends PApplet{
 			textAlign(RIGHT);
 			textSize(24);
 			text(score, 450, 10, 200, 75);  
-
+			popMatrix();
 			if(mousePressed && overRect( 10, 10, 100, 75)){
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
 				restart();
+
 				}
 		fill(255);	
+		pushMatrix();
 		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 		
 	    //box(100); //delete later
@@ -133,6 +139,7 @@ public class GameSurface extends PApplet{
 		}
 		popMatrix(); 
 		runOnce();
+			//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){
@@ -189,21 +196,41 @@ public class GameSurface extends PApplet{
 			
 		}
 		
-	}	
+	}
+	private int prevKeyCode(){
+		return keyCode;
+	}
 	
 	/**
 	 * Handles key presses.
 	 */
 	public void keyPressed(){
-		if(keyCode == UP){
+		
+		if(prevKeyCode() == UP){
+			jumpCount--;
+		}
+		
+		if(keyCode == UP && jumpCount > 0){
+			jumpCount --;
+			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();
 		}
-		if(keyCode == LEFT)
-		snowball.moveLeft();
-		if(keyCode == RIGHT)
+		
+		if(snowball.getY() == 0){
+			jumpCount = 3;
+			}
+		
+		if(keyCode == LEFT){
+			snowball.moveLeft();
+			jumpCount = 3;
+		}
+		
+		if(keyCode == RIGHT){
 			snowball.moveRight();
-
+			jumpCount = 3;
+		}
 	}
+
 	
 	private boolean overRect(int x, int y, int width, int height)  {
 		  if (mouseX >= x && mouseX <= x+width && 
