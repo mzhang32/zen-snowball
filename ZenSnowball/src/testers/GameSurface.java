@@ -101,6 +101,7 @@ public class GameSurface extends PApplet{
 	 * Runs repeatedly to draw all the objects onto the screen.
 	 */
 	public void draw(){
+		background(255, 255, 255);
 		//System.out.println("draw() was called");
 		if(isGame){
 			int time = millis();
@@ -141,6 +142,15 @@ public class GameSurface extends PApplet{
 			
 			popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
 			runOnce();
+			if(snowball.isColliding()) {
+System.out.println("should print to screen");				
+				pushStyle();
+				textSize(30);
+			    textAlign(CENTER);
+			    fill(255, 0, 0);
+				text("Oops", width/2, height/2);
+				popStyle();
+			}	
 			//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		

@@ -26,6 +26,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
 	private float x, y, z, r;
+	private boolean isColliding;
 
 	private ArrayList<Shape> obstacles;
 	private boolean onASurface = true, touchingXSurface = false, touchingYSurface = false, touchingZSurface = false;
@@ -44,10 +45,11 @@ public class Snowball extends Shape3D implements Collidable{
 		this.y = y; 
 		this.z = z;
 		this.r = r;
-		
+		isColliding = false;
 		
 	}
 	
+
 	/**
 	 *  Draws the snowball.
 	 *  
@@ -56,9 +58,10 @@ public class Snowball extends Shape3D implements Collidable{
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();
+		p.fill(255, 255, 255);
 		p.noStroke();
-		p.translate(x,y-r/2,z);
-		p.sphere(r);
+		p.translate(x,y-r/2,z);				
+		p.sphere(r);	
 		p.popMatrix();
 		p.popStyle();
 	}
@@ -114,10 +117,13 @@ public class Snowball extends Shape3D implements Collidable{
 			if(this.collides(o)) {
 				score--;
 				System.out.println("Snowball is colliding with something");
+				isColliding = true;
+				break;
 			}
 			else {
 				//System.out.println(obs);
 				//System.out.println("No collision");
+				//isColliding = false;
 			}
 		}
 		
@@ -166,6 +172,10 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 	}
 
+	public boolean isColliding() {
+		return isColliding;
+	}
+	
 	@Override
 	public void act() {
 		// TODO Auto-generated method stub
