@@ -54,10 +54,7 @@ public class GameSurface extends PApplet{
 		obstacles = path.getObstacles();
 
 	}
-//	public void removeAll(){
-//		snowball.removeFromSurface();
-//		
-//	}
+
 	public void restart(){
 		background(255);
 		path = new Path(500, 1000);
@@ -134,10 +131,8 @@ public class GameSurface extends PApplet{
 		for(int x = 0; x < obstacles.size(); x++){
 			obstacles.get(x).draw(this);
 		}
-		
-		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
+		popMatrix(); 
 		runOnce();
-		System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){
@@ -194,7 +189,6 @@ public class GameSurface extends PApplet{
 			
 		}
 		
-		//System.out.println("draw() runs all the way through");
 	}	
 	
 	/**

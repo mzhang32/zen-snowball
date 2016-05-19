@@ -52,16 +52,7 @@ public static int score;
 		p.popMatrix();	
 	}
 
-	/**
-	 * Detects whether the object is colliding with another collidable.
-	 * 
-	 * @return true if the object collides with another object.
-	 */
-	public boolean collides() {
-		score ++;
-		return false;
-	}
-
+	
 	/**
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
@@ -89,7 +80,6 @@ public static int score;
 	}
 
 
-	@Override
 	public boolean collides(Collidable other) {
 		// TODO Auto-generated method stub
 		return false;
