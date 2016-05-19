@@ -90,7 +90,11 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 		}
 		return false;
 	}
-
+	public void moveToOrigin(){
+		x = 0;
+		y = 0;
+		z = 0;
+	}
 
 	/**
 	 *  Decreases the snowball's velocity in the x direction by a set amount.

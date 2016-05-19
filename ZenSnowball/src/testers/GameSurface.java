@@ -46,7 +46,6 @@ public class GameSurface extends PApplet{
 	 * Initializes the drawing surface and the objects of the game.
 	 */
 	public GameSurface(){
-				
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
 		add(snowball);
 
@@ -54,6 +53,18 @@ public class GameSurface extends PApplet{
 		add(path);		
 		obstacles = path.getObstacles();
 
+	}
+//	public void removeAll(){
+//		snowball.removeFromSurface();
+//		
+//	}
+	public void restart(){
+		background(255);
+		
+		path = new Path(500, 1000);
+		add(path);		
+		obstacles = path.getObstacles();
+		snowball.moveToOrigin();
 	}
 	
 	/**
@@ -71,7 +82,6 @@ public class GameSurface extends PApplet{
 	public void runOnce() {	 
 		snowball.act(path);
 		path.act();
-	    
 	}
 	
 	/**
@@ -105,7 +115,8 @@ public class GameSurface extends PApplet{
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
-		}
+				restart();
+				}
 		fill(255);	
 		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 		
@@ -120,7 +131,7 @@ public class GameSurface extends PApplet{
 		
 		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
 		runOnce();
-		
+		System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){

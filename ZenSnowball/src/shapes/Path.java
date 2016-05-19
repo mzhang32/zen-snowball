@@ -30,24 +30,40 @@ public class Path implements Drawable{
 //		o.add(new Obstacle(-getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
 		//o.add(new Obstacle((float)(Math.random()*6)*getWidth()/6, (float)Math.random()*600 , 0, getWidth()/3, 30, 30));
 		obstacles.add(new Obstacle(-getWidth()/2, 0, 0, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -200, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -600, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(getWidth()/6, 0, -600, getWidth()/3, 60, 60));	
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -400, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/6, 0, -200, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(getWidth()/6, 0, -800, getWidth()/3, 60, 60));	
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
+		obstacles.add(new Obstacle(-getWidth()/2, 0, -1000, getWidth()/3, 60, 60));
 		addObstacles(o);
 	}
 	
 	public void generateObstacle(float z){
-		double x = Math.random()*6;
-		if(x >= 1){
-			if(-getWidth()/x > -getWidth()/2){
-				obstacles.add(new Obstacle((float)(-getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
-			}
-			else if (getWidth()/x < getWidth()/2){
-				obstacles.add(new Obstacle((float)(getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
-	
-				}
-			}
+		double x = Math.random()*3;
+		
+		if(x > 2){
+			addObstacles(new Obstacle(-getWidth()/2, 0, z, getWidth()/3, 60, 60));
+
+		}
+		else if(x > 1){
+			addObstacles(new Obstacle(-getWidth()/6, 0, z, getWidth()/3, 60, 60));
+
+		}
+		else if(x > 0){
+			addObstacles(new Obstacle(getWidth()/6, 0, z, getWidth()/3, 60, 60));	
+		}
+//		}
+//			if(-getWidth()/x > -getWidth()/2){
+//				addObstacles(new Obstacle((float)(-getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
+//			}
+//			else if (getWidth()/x < getWidth()/2){
+//				addObstacles(new Obstacle((float)(getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
+//	
+//				}
+		
 	}
 		
 	/**
@@ -61,11 +77,15 @@ public class Path implements Drawable{
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
 	}
-	public void addObstacles(ArrayList<Obstacle> o){
+		public void addObstacles(ArrayList<Obstacle> o){
 		for(int x = 0; x < o.size(); x++){
 		obstacles.add(o.get(x));
+		}
 	}
-	}
+		public void addObstacles(Obstacle o){
+			obstacles.add(o);
+			
+		}
 	/**
 	 * Calls the act method for every obstacle on the path
 	 * @post All the obstacles on the path will move towards the positive z
@@ -73,21 +93,20 @@ public class Path implements Drawable{
 	public void act() {
 		for(int x = 0; x < obstacles.size(); x++) {
 			obstacles.get(x).act();
-			if(obstacles.get(x).getZ() == -50){
-				
-				generateObstacle(-1000);
-				
-				if(obstacles.get(x).getZ() >= 250){
+			
+			if(obstacles.get(x).getZ() > 250){
+				obstacles.remove(x);					
 					
-					obstacles.remove(x);				
-					
-				}
+				}	
+			if(obstacles.size() < 9)
+			generateObstacle(-1600);
+
 
 			}
 
 		}
 		//TODO: Generate new obstacles at appropriate time in appropriate place.
-	}
+	
 	public void scroll(){
 		
 	}
@@ -103,9 +122,9 @@ public class Path implements Drawable{
 		p.stroke(0);
 		p.line(-width/2, 0, 0, -width/2, 0, -depth);//need to change z-coord
 		p.line(width/2, 0, 0, width/2, 0, -depth);
-		p.line(-width/2, 0, 0, width/2, 0, 0); //delete later x axis
-		p.line(0, -1000, 0, 0, 100, 0);//delete later y axis
-		p.line(0, 0, 10, 0, 0, -1000);//delete later z axis
+	//	p.line(-width/2, 0, 0, width/2, 0, 0); //delete later x axis
+	//	p.line(0, -1000, 0, 0, 100, 0);//delete later y axis
+	//	p.line(0, 0, 10, 0, 0, -1000);//delete later z axis
 		p.popMatrix();
 		p.popStyle();
 	}
