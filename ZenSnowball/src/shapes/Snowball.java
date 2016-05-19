@@ -68,27 +68,7 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 	 * 
 	 * @return true if the object collides with another object.
 	 */
-	public boolean collides(Obstacle o) {
-		double lowerXBound = o.getX();
-		double upperXBound = o.getX() + o.getWidth();
-		double lowerYBound = o.getY();
-		double upperYBound = o.getY()+o.getHeight();
-		double lowerZBound = o.getZ();
-		double upperZBound = o.getZ() + o.getDepth();
-		if(x+r > lowerXBound && x+r < upperXBound){
-			touchingXSurface = true;
-			return true;
-		}
-		if(y + r >lowerYBound && y+r < upperYBound){
-			touchingYSurface = true;
-			return true;
-		}
-		if(z+r > lowerZBound && z+r < upperZBound){
-			touchingZSurface = true;
-			return true;
-		}
-		return false;
-	}
+	
 	public void moveToOrigin(){
 		x = 0;
 		y = 0;
