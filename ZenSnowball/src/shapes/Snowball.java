@@ -5,6 +5,8 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+import javax.media.j3d.BoundingSphere;
+import javax.media.j3d.Bounds;
 import javax.media.j3d.Shape3D;
 import javax.vecmath.Point3d;
 
@@ -143,12 +145,23 @@ public class Snowball extends Shape3D implements Collidable, Drawable{
 			// TODO Auto-generated method stub
 			
 		}
-
+		
+	/**
+	 * 
+	 * @return A bounding sphere.
+	 */
+	public BoundingSphere getBounds() {
+		Point3d center = new Point3d(x, y, z);
+		return new BoundingSphere(center, r);
+	}
+	
 	@Override
-	public boolean collides() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean collides(Collidable other) {		
+		if(getBounds().intersect(other.getBounds()))
+			return true;
+		else
+			return false;
 	}
 		
-	}
+}
 

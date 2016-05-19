@@ -1,5 +1,7 @@
 package shapes;
 
+import javax.media.j3d.Bounds;
+
 import processing.core.PApplet;
 
 /**
@@ -16,9 +18,13 @@ public interface Collidable extends Drawable{
 	 * 
 	 * @return true if the object collides with another object.
 	 */
-	boolean collides();
+	boolean collides(Collidable other);
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
+	Bounds getBounds();
 	
 	/**
 	 * Gets called repeatedly. Checks for collisions and acts accordingly.

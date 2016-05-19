@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 
+import javax.media.j3d.BranchGroup;
 import javax.swing.*;
 
 import java.util.*;
@@ -39,6 +40,7 @@ public class GameSurface extends PApplet{
 	private boolean isGame = false;
 	private boolean isStartScreen = true;
 	private boolean isInstructions = false;
+	
 
 	/**
 	 * Initializes the drawing surface and the objects of the game.
@@ -60,7 +62,7 @@ public class GameSurface extends PApplet{
 			add(obstacles.get(x));
 		}
 		
-
+		
 	}
 	
 	/**
@@ -88,6 +90,7 @@ public class GameSurface extends PApplet{
 		items.add(c);
 	}
 	
+	
 	/**
 	 * Runs repeatedly to draw all the objects onto the screen.
 	 */
@@ -95,21 +98,21 @@ public class GameSurface extends PApplet{
 		//System.out.println("draw() was called");
 		if(isGame){
 			int time = millis();
-		pushMatrix();
-		pushStyle();
-		colorMode(RGB);		
-		background(255);
-		stroke(0);
-		lights();
-		String back = "BACK";
-		fill(0);
-		textAlign(LEFT);
-		textSize(24);
-		text(back, 10, 10, 100, 75);  
-		if(mousePressed && overRect( 10, 10, 100, 75)){
-			isGame = false;
-			isStartScreen= true;
-			isInstructions = false;
+			pushMatrix();
+			pushStyle();
+			colorMode(RGB);		
+			background(255);
+			stroke(0);
+			lights();
+			String back = "BACK";
+			fill(0);
+			textAlign(LEFT);
+			textSize(24);
+			text(back, 10, 10, 100, 75);  
+			if(mousePressed && overRect( 10, 10, 100, 75)){
+				isGame = false;
+				isStartScreen= true;
+				isInstructions = false;
 		}
 		fill(255);	
 		translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
@@ -122,6 +125,7 @@ public class GameSurface extends PApplet{
 		
 		popMatrix(); //Matrix is at the end b/c translate needs to apply to everything drawn
 		runOnce();
+		
 		}
 		
 		else if (isStartScreen){
