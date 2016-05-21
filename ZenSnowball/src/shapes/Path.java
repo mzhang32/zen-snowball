@@ -15,6 +15,7 @@ public class Path implements Drawable{
 	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private float width;
 	private float depth;
+	public static final int WHEN_STUFF_DISSAPEARS = 250;
 	
 	/**
 	 * Constructs a path with a width and a depth(distance into the screen from the game's origin)
@@ -96,7 +97,7 @@ public class Path implements Drawable{
 		for(int x = 0; x < obstacles.size(); x++) {
 			obstacles.get(x).act();
 			
-			if(obstacles.get(x).getZ() > 250){
+			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS){
 				obstacles.remove(x);									
 			}	
 			if(obstacles.size() < 9)
