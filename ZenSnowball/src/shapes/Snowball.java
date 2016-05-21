@@ -27,6 +27,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double MOVE_SPEED = 5;
 	private float x, y, z, r;
 	private boolean isColliding;
+	private boolean isGameOver;
 
 	private ArrayList<Shape> obstacles;
 	private boolean onASurface = true, touchingXSurface = false, touchingYSurface = false, touchingZSurface = false;
@@ -46,7 +47,7 @@ public class Snowball extends Shape3D implements Collidable{
 		this.z = z;
 		this.r = r;
 		isColliding = false;
-		
+		isGameOver = false;
 	}
 	
 
@@ -118,12 +119,14 @@ public class Snowball extends Shape3D implements Collidable{
 		
 		ArrayList<Obstacle> obs = path.getObstacles();
 		
+		Obstacle curColliding = null;
 		for(int i = 0; i < obs.size(); i++) {
 			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
 				score--;
 				System.out.println("Snowball is colliding with something");
 				isColliding = true;
+				curColliding = o;
 				break;
 			}
 			else if(i == obs.size() - 1) {
@@ -132,7 +135,14 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		if(isColliding) { //does not allow snowball to fall into obstacle from above
-			yVelocity = 0;
+			if(this.z - this.r <= curColliding.getZ()) {
+				this.z = (float)curColliding.getZ() + this.r;
+			}
+			else {
+				yVelocity = 0;
+				y = -(float)curColliding.getHeight() - 20; //sketchy stuff
+			}	
+			System.out.print("obsheight is " + curColliding.getHeight() + " and snowball y is " + this.y);
 		}
 		
 		y += yVelocity;
@@ -140,7 +150,6 @@ public class Snowball extends Shape3D implements Collidable{
 			yVelocity += GRAVITY;		
 		}
 		else if(y >= 0){
-			
 			yVelocity = 0;
 			y = 0;
 		}		
@@ -154,6 +163,10 @@ public class Snowball extends Shape3D implements Collidable{
 				xVelocity = 0;
 				x = -path.getWidth()/2;
 			}
+		}
+		
+		if(z > Path.WHEN_STUFF_DISSAPEARS) {
+			isGameOver = true;
 		}
 			
 			
@@ -195,9 +208,15 @@ public class Snowball extends Shape3D implements Collidable{
 		return isColliding;
 	}
 	
+
 	/**
 	 * Does nothing. 
 	 */
+
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+	
 	public void act() {
 		
 	}

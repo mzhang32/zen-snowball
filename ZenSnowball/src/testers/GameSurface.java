@@ -82,9 +82,10 @@ public class GameSurface extends PApplet{
 	 * Calls the act methods of all the game objects once.
 	 */
 	public void runOnce() {	 
+		path.act();
 		snowball.act(path);
 		//bigsnowball.act(path);
-		path.act();
+		
 	}
 	
 	/**
@@ -131,9 +132,9 @@ public class GameSurface extends PApplet{
 		
 			fill(255);	
 			pushMatrix();
+			camera(); //will do something with camera later
 			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 			
-		    //box(100); //delete later
 			popStyle();
 			for(int x = 0; x < items.size(); x++){
 				items.get(x).draw(this);
@@ -144,8 +145,7 @@ public class GameSurface extends PApplet{
 			popMatrix(); 
 			runOnce();
 			
-			if(snowball.isColliding()) {
-				System.out.println("should print to screen");				
+			if(snowball.isColliding() || snowball.isGameOver()) {				
 				pushStyle();
 				textSize(30);
 				textAlign(CENTER);
