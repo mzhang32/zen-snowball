@@ -129,6 +129,14 @@ public class GameSurface extends PApplet{
 			textSize(24);
 			text(score, 450, 10, 200, 75);  
 			
+			rectMode(CENTER);
+			noFill();
+			rect(width/2, height/20, width/2, 10);
+			fill(0, 255, 0);
+			rectMode(CORNER);
+			double winInterval = Snowball.WIN_RADIUS - Snowball.INIT_RADIUS;
+			rect(width/4f, (float)(height/20 - 5), (float)(width/2 * (snowball.getRadius()-Snowball.INIT_RADIUS)/winInterval), 10);
+			
 			fill(255);
 			pushStyle();
 			popMatrix();

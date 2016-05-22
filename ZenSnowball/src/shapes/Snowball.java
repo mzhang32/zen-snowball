@@ -22,11 +22,13 @@ import processing.core.PApplet;
 public class Snowball extends Shape3D implements Collidable{
 	private int score;
 	public static final double INIT_RADIUS = 30.0;
+	public static final double WIN_RADIUS = 60;//Set to 60
+	
 	private static final double GRAVITY = 0.7;
 	private double xVelocity, yVelocity, zVelocity;
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
-	private static final double WIN_RADIUS = 60;//Set to 60
+	
 	private float x, y, z, r;
 	private boolean isColliding;
 	private boolean isGameOver;
