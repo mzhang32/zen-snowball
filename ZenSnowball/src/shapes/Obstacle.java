@@ -14,7 +14,7 @@ import processing.core.PApplet;
  * @version 05.16.2016
  */
 public class Obstacle extends Shape3D implements Collidable{
-	public static int score;
+
 	private float x, y, z;
 	private float width, height, depth;
 	

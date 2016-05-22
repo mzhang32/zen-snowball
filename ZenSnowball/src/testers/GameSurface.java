@@ -31,7 +31,7 @@ public class GameSurface extends PApplet{
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
 	public static final int INIT_RADIUS = 30;
-	private int jumpCount = 2;
+	private int jumpCount = 1;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
@@ -76,12 +76,7 @@ public class GameSurface extends PApplet{
 		noStroke();
 		lights();		
 		size(700,700,P3D);
-		if(isGame){
-			PImage img = loadImage("trees.png");
-			image (img,0,0);
-			background(img);
-
-		}
+		colorMode(RGB);
 	} 
 	 
 	/**
@@ -136,12 +131,15 @@ public class GameSurface extends PApplet{
 			vertex(30, 75);
 			endShape(CLOSE);
 			
+			pushStyle();			
+			background(255);
+			stroke(0);		
 			String back = "BACK";
 			fill(0);
 			textAlign(LEFT);
 			textSize(24);
 			text(back, 10, 10, 100, 75);  
-			String score = "Score: " + snowball.score;
+			String score = "Score: " + snowball.getScore();
 			fill(0);
 			textAlign(RIGHT);
 			textSize(24);
@@ -154,15 +152,17 @@ public class GameSurface extends PApplet{
 				isStartScreen= true;
 				isInstructions = false;
 				restart();
-				Snowball.score = 0;
 			}
 			
 			fill(255);	
 			pushMatrix();
-			camera(); //will do something with camera later
+			//camera(); //will do something with camera later
+			camera(width/2.0f, height/2.0f + path.getYTilt(), (float)((height/2.0) / Math.tan(Math.PI*30.0 / 180.0)), width/2.0f, height/2.0f, 0f, 0f, 1f, 0f);
 			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 			
 			popStyle();
+			
+			lights();
 			for(int x = 0; x < items.size(); x++){
 				items.get(x).draw(this);
 			}
@@ -170,18 +170,20 @@ public class GameSurface extends PApplet{
 				obstacles.get(x).draw(this);
 			}
 			popMatrix(); 
-			runOnce();
 			
-//			if(snowball.isColliding() || snowball.isGameOver()) {		
-			if(snowball.isColliding()) {	
+
+			if(!snowball.isGameOver()) {
+				runOnce();
+			}	
+			else if(snowball.isGameOver()) {
 				pushStyle();
 				textSize(30);
 				textAlign(CENTER);
 				fill(255, 0, 0);
-				text("Oops", width/2, height/2);
-				Snowball.score--;
+				text("Game Over", width/2, height/3);
+				text("Score: " + snowball.getScore(), width/2, height/3 + height/15);
 				popStyle();
-			}	
+			}
 
 		}
 		
@@ -224,13 +226,13 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(64);
 			text(instructions, 50, 50, 500, 500);  
-			
+			pushStyle();
 			String goBack = "GO BACK TO START SCREEN";
 			fill(0);
 			textAlign(LEFT);
 			textSize(24);
 			text(goBack, 250, 550, 425, 75);  
-
+			popStyle();
 			if(mousePressed && overRect(250, 550, 425, 75)){
 				isGame = false;
 				isStartScreen= true;
@@ -240,40 +242,36 @@ public class GameSurface extends PApplet{
 		}
 		
 	}
-	private int prevKeyCode(){
-		return keyCode;
-	}
+		
 	
 	/**
 	 * Handles key presses.
 	 */
 	public void keyPressed(){
 		
-		if(prevKeyCode() == ' '){
+	if(keyCode == ' ' && jumpCount > 0){			
 			jumpCount--;
+			System.out.println("Jump Count: " + jumpCount);
+			snowball.jump();
 		}
 		
 		 if(snowball.onSurface()){
-			jumpCount = 2;
+			jumpCount = 1;
 		}
 	
 		 if(keyCode == LEFT){
 			snowball.moveLeft();
-			jumpCount = 2;
+			jumpCount = 1;
 		}
 		
 		 if(keyCode == RIGHT){
 			snowball.moveRight();
-			jumpCount = 2;
+			jumpCount = 1;
 		}
 	
 		 if(keyCode == UP){
 			 snowball.moveUp();
 		 }
-		if(keyCode == ' ' && jumpCount > 0){
-			System.out.println("Jump Count: " + jumpCount);
-			snowball.jump();
-		}
 		
 		
 	}

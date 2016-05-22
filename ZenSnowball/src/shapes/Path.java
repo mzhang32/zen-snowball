@@ -75,6 +75,10 @@ public class Path implements Drawable{
 		return width;
 	}
 	
+	public float getYTilt() {
+		return 0;
+	}
+	
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
 	}

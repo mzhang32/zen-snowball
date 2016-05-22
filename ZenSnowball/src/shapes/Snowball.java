@@ -20,7 +20,7 @@ import processing.core.PApplet;
  *
  */
 public class Snowball extends Shape3D implements Collidable{
-	public static int score;
+	private int score;
 	private static final double GRAVITY = 0.7;
 	private double xVelocity, yVelocity, zVelocity;
 	private static final double JUMP_STRENGTH = 15;
@@ -59,7 +59,10 @@ public class Snowball extends Shape3D implements Collidable{
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();
-		p.fill(255, 255, 255);
+		if(isColliding)
+			p.fill(255, 0, 0);
+		else
+			p.fill(255, 255, 255);
 		p.noStroke();
 		p.translate(x,y-r/2,z);				
 		p.sphere(r);	
@@ -127,7 +130,6 @@ public class Snowball extends Shape3D implements Collidable{
 		for(int i = 0; i < obs.size(); i++) {
 			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
-				score--;
 				System.out.println("Snowball is colliding with something");
 				isColliding = true;
 				curColliding = o;
@@ -177,6 +179,7 @@ public class Snowball extends Shape3D implements Collidable{
 			isGameOver = true;
 		}
 			
+		score++;
 			
 	}
 		
@@ -230,6 +233,13 @@ public class Snowball extends Shape3D implements Collidable{
 	public void act() {
 		
 	}
+
+	
+	public int getScore() {
+		return score;
+	}
+
+
 	/**
 	 * Returns y coordinate of the snowball's center
 	 * @return y value of the snowball's center. 
