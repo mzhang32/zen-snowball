@@ -30,7 +30,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private boolean isGameOver;
 
 	private ArrayList<Shape> obstacles;
-	private boolean onASurface = true, touchingXSurface = false, touchingYSurface = false, touchingZSurface = false;
+	private boolean onASurface = true;
 
 	
 	/**
@@ -211,7 +211,7 @@ public class Snowball extends Shape3D implements Collidable{
 	 * @return boolean true if on a surface, false if otherwise. 
 	 */
 	public boolean onSurface(){
-		return onASurface;
+		return y==0;
 	}
 
 	/** 

@@ -249,10 +249,11 @@ public class GameSurface extends PApplet{
 	 */
 	public void keyPressed(){
 		
-	if(keyCode == ' ' && jumpCount > 0){			
-			jumpCount--;
+	if( jumpCount > 0 && keyCode == ' '){			
 			System.out.println("Jump Count: " + jumpCount);
-			snowball.jump();
+			snowball.jump();			
+			jumpCount--;
+
 		}
 		
 		 if(snowball.onSurface()){
