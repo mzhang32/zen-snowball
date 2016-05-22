@@ -225,10 +225,10 @@ public class GameSurface extends PApplet{
 			background(0,0,255);
 			stroke(255,0,0);
 			fill(255,0,0);
-			String instructions = "This is the instructions page.";
+			String instructions = "INSTRUCTIONS: Use the left, right, and up arrows to navigate Zen through the blustery winter wonderland. Zen must avoid all dangerous “rocks”(by jumping over them) as well as all snowballs larger than itself (by moving out of their way). While hitting a “rock” will decrease Zen’s size by X%, if Zen is unable to move out of the larger snowball’s way, Zen will be absorbed into the larger snowball. ";
 			fill(255);
 			textAlign(LEFT);
-			textSize(64);
+			textSize(27);
 			text(instructions, 50, 50, 500, 500);  
 			pushStyle();
 			String goBack = "GO BACK TO START SCREEN";
