@@ -22,7 +22,7 @@ public interface Collidable extends Drawable{
 	
 	/**
 	 * 
-	 * @return
+	 * @return bounds of the bounding shape. 
 	 */
 	public Bounds getBoundingShape();
 	

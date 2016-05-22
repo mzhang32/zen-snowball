@@ -58,7 +58,9 @@ public class GameSurface extends PApplet{
 		obstacles = path.getObstacles();
 
 	}
-
+	/**
+	 * Restarts the game. 
+	 */
 	public void restart(){
 		background(255);
 		path = new Path(500, 1000);
@@ -223,25 +225,31 @@ public class GameSurface extends PApplet{
 	 * Handles key presses.
 	 */
 	public void keyPressed(){
+		
 		if(prevKeyCode() == UP){
 			jumpCount--;
 		}
+		
+		 if(snowball.onSurface()){
+			jumpCount = 2;
+		}
+	
+		 if(keyCode == LEFT){
+			snowball.moveLeft();
+			jumpCount = 2;
+		}
+		
+		 if(keyCode == RIGHT){
+			snowball.moveRight();
+			jumpCount = 2;
+		}
+		
 		if(keyCode == UP && jumpCount > 0){
 			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();
 		}
-		if(snowball.onSurface()){
-			jumpCount = 2;
-		}
-		if(keyCode == LEFT){
-		snowball.moveLeft();
-		jumpCount = 2;
-		}
 		
-		if(keyCode == RIGHT){
-			snowball.moveRight();
-			jumpCount = 2;
-		}
+		
 	}
 
 	

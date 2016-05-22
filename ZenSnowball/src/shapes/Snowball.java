@@ -105,7 +105,10 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 	
 	
-	
+	/**
+	 * returns radius of the Snowball. 
+	 * @return returns radius of the Snowball. 
+	 */
 	public float getRadius(){
 		return r;
 	}
@@ -181,7 +184,10 @@ public class Snowball extends Shape3D implements Collidable{
 		return new BoundingSphere(center, r);
 	}
 	
-	@Override
+	/**
+	 * Checks to see of one object collides into the other. 
+	 * @return boolean true if collides, false if otherwise. 
+	 */
 	public boolean collides(Collidable other) {		
 		if(this.getBoundingShape().intersect(other.getBoundingShape())){
 			return true;
@@ -190,31 +196,47 @@ public class Snowball extends Shape3D implements Collidable{
 			return false;
 		}
 	}
+	/**
+	 *Returns whether or not the snowball is on a surface.  
+	 * @return boolean true if on a surface, false if otherwise. 
+	 */
 	public boolean onSurface(){
 		return onASurface;
 	}
 
-
+	/** 
+	 * @return boolean true if is colliding, false if otherwise. 
+	 */
 	public boolean isColliding() {
 		return isColliding;
 	}
 	
+
+	/**
+	 * Does nothing. 
+	 */
+
 	public boolean isGameOver() {
 		return isGameOver;
 	}
 	
 	public void act() {
-		// TODO Auto-generated method stub
 		
 	}
+<<<<<<< HEAD
 	
 	public int getScore() {
 		return score;
 	}
 
+=======
+	/**
+	 * Returns y coordinate of the snowball's center
+	 * @return y value of the snowball's center. 
+	 */
+>>>>>>> 41f63dfcbb01ac154cd60d9b59f5f06e41099df4
 	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
 	}
 		
 }

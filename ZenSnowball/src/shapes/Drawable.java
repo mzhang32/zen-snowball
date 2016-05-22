@@ -17,5 +17,8 @@ public interface Drawable {
 	 * @pre The PApplet must be initialized.
 	 */
 	void draw(PApplet p);
+	/**
+	 * Causes the object to act. 
+	 */
 	void act();
 }
