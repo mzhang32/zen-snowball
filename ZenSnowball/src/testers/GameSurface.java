@@ -179,6 +179,14 @@ public class GameSurface extends PApplet{
 			if(!snowball.isGameOver()) {
 				runOnce();
 			}	
+			else if(snowball.isWin()) {
+				pushStyle();
+				textSize(30);
+				textAlign(CENTER);
+				fill(0, 255, 0);
+				text("YOU WON!!! GOOD JOB!!", width/2, height/3);
+				popStyle();
+			}
 			else if(snowball.isGameOver()) {
 				pushStyle();
 				textSize(30);

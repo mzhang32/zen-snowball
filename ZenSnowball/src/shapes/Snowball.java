@@ -25,9 +25,11 @@ public class Snowball extends Shape3D implements Collidable{
 	private double xVelocity, yVelocity, zVelocity;
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
+	private static final double WIN_RADIUS = 40;//Set to 60
 	private float x, y, z, r;
 	private boolean isColliding;
 	private boolean isGameOver;
+	private boolean isWin;
 
 	private ArrayList<Shape> obstacles;
 	private boolean onASurface = true;
@@ -177,6 +179,11 @@ public class Snowball extends Shape3D implements Collidable{
 		if(z > Path.WHEN_STUFF_DISSAPEARS) {
 			isGameOver = true;
 		}
+		else if(r > WIN_RADIUS) {
+			isWin = true;
+			isGameOver = true;
+		}
+		
 		
 		System.out.println("radius is " + r);
 			
@@ -223,12 +230,12 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 	
 
-	/**
-	 * Does nothing. 
-	 */
-
 	public boolean isGameOver() {
 		return isGameOver;
+	}
+	
+	public boolean isWin() {
+		return isWin;
 	}
 	
 	public void act() {
