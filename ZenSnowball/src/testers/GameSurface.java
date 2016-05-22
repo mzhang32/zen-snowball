@@ -30,7 +30,6 @@ public class GameSurface extends PApplet{
 	
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
-	public static final int INIT_RADIUS = 30;
 	private int jumpCount = 1;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
@@ -47,7 +46,7 @@ public class GameSurface extends PApplet{
 	 * Initializes the drawing surface and the objects of the game.
 	 */
 	public GameSurface(){
-		snowball = new Snowball(0,0,0,INIT_RADIUS);
+		snowball = new Snowball(0,0,0,(int)Snowball.INIT_RADIUS);
 		items.add(snowball);
 
 		//bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
@@ -66,7 +65,7 @@ public class GameSurface extends PApplet{
 		fill(255);
 		path = new Path(500, 1000);
 		obstacles = path.getObstacles();
-		snowball = new Snowball(0,0,0, INIT_RADIUS);	
+		snowball = new Snowball(0,0,0, (int)Snowball.INIT_RADIUS);	
 		items.add(snowball);
 		add(path);				
 
