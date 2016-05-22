@@ -26,7 +26,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
 	private float x, y, z, r;
-	private boolean isColliding;
+	private boolean isCollidingObstacle, isCollidingLittleSnowball;
 	private boolean isGameOver;
 
 	private ArrayList<Shape> obstacles;
@@ -46,7 +46,9 @@ public class Snowball extends Shape3D implements Collidable{
 		this.y = y; 
 		this.z = z;
 		this.r = r;
-		isColliding = false;
+		isCollidingLittleSnowball = false;
+		isCollidingObstacle = false;
+
 		isGameOver = false;
 	}
 	
@@ -59,7 +61,7 @@ public class Snowball extends Shape3D implements Collidable{
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();
-		if(isColliding)
+		if(isCollidingObstacle)
 			p.fill(255, 0, 0);
 		else
 			p.fill(255, 255, 255);
@@ -125,21 +127,29 @@ public class Snowball extends Shape3D implements Collidable{
 	public void act(Path path) {
 		
 		ArrayList<Obstacle> obs = path.getObstacles();
+		ArrayList<LittleSnowball> ls = path.getLittleSnowballs();
+		Obstacle curColliding = null;		
+		for(int x = 0; x < ls.size(); x++){
+			LittleSnowball little = ls.get(x);
+			if(this.collides(little)){
+				isCollidingLittleSnowball = true;
+				this.r++;
+			}
+		}
 		
-		Obstacle curColliding = null;
 		for(int i = 0; i < obs.size(); i++) {
 			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
-				isColliding = true;
+				isCollidingObstacle = true;
 				curColliding = o;
 				break;
 			}
 			else if(i == obs.size() - 1) {
-				isColliding = false;
+				isCollidingObstacle = false;
 			}
 		}
 		
-		if(isColliding) { //does not allow snowball to fall into obstacle from above
+		if(isCollidingObstacle) { //does not allow snowball to fall into obstacle from above
 			if(this.z - this.r <= curColliding.getZ()) {
 				this.z = (float)curColliding.getZ() + this.r;
 			}
@@ -199,11 +209,22 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public boolean collides(Collidable other) {		
 		if(this.getBoundingShape().intersect(other.getBoundingShape())){
-			isColliding = true;
+			isCollidingObstacle = true;
 			return true;
 		}
 		else{
-			isColliding = false;
+			isCollidingObstacle = false;
+			return false;
+		}
+	}
+	
+	public boolean collides(LittleSnowball ls){
+		if(this.getBoundingShape().intersect(ls.getBoundingShape())){
+			isCollidingLittleSnowball = true;
+			return true;
+		}
+		else{
+			isCollidingLittleSnowball = false;
 			return false;
 		}
 	}
@@ -218,10 +239,15 @@ public class Snowball extends Shape3D implements Collidable{
 	/** 
 	 * @return boolean true if is colliding, false if otherwise. 
 	 */
-	public boolean isColliding() {
-		return isColliding;
+	public boolean isCollidingObstacle() {
+		return isCollidingObstacle;
 	}
-	
+	/** 
+	 * @return boolean true if is colliding, false if otherwise. 
+	 */
+	public boolean isCollidingLittleSnowball() {
+		return isCollidingLittleSnowball;
+	}
 
 	/**
 	 * Does nothing. 
