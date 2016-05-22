@@ -31,7 +31,7 @@ public class GameSurface extends PApplet{
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
 	public static final int INIT_RADIUS = 30;
-	private int jumpCount = 2;
+	private int jumpCount = 1;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
@@ -105,8 +105,32 @@ public class GameSurface extends PApplet{
 		background(255, 255, 255);
 		//System.out.println("draw() was called");
 		if(isGame){
-			int time = millis();
+			//int time = millis();
 			pushMatrix();
+			pushStyle();
+			colorMode(RGB);	
+			lights();
+			background(255);
+			stroke(0,0,255,100);
+			fill(0, 0,255,100);
+			rect(0,0,700,350);
+			fill(0,0,255,50);		
+			
+			beginShape();
+			vertex(0, 350);
+			vertex(0, 700);
+			vertex(30, 700);
+			vertex(250, 350);
+			endShape(CLOSE);
+			
+			fill(0,0,255,50);
+			beginShape();
+			vertex(30, 20);
+			vertex(85, 20);
+			vertex(85, 75);
+			vertex(30, 75);
+			endShape(CLOSE);
+			
 			pushStyle();			
 			background(255);
 			stroke(0);		
@@ -120,6 +144,8 @@ public class GameSurface extends PApplet{
 			textAlign(RIGHT);
 			textSize(24);
 			text(score, 450, 10, 200, 75);  
+			fill(255);
+			pushStyle();
 			popMatrix();
 			if(mousePressed && overRect( 10, 10, 100, 75)){
 				isGame = false;
@@ -128,7 +154,6 @@ public class GameSurface extends PApplet{
 				restart();
 			}
 			
-		
 			fill(255);	
 			pushMatrix();
 			//camera(); //will do something with camera later
@@ -146,6 +171,7 @@ public class GameSurface extends PApplet{
 			}
 			popMatrix(); 
 			
+
 			if(!snowball.isGameOver()) {
 				runOnce();
 			}	
@@ -159,7 +185,6 @@ public class GameSurface extends PApplet{
 				popStyle();
 			}
 
-			
 		}
 		
 		else if (isStartScreen){
@@ -201,13 +226,13 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(27);
 			text(instructions, 50, 50, 500, 500);  
-			
+			pushStyle();
 			String goBack = "GO BACK TO START SCREEN";
 			fill(0);
 			textAlign(LEFT);
 			textSize(24);
 			text(goBack, 250, 550, 425, 75);  
-
+			popStyle();
 			if(mousePressed && overRect(250, 550, 425, 75)){
 				isGame = false;
 				isStartScreen= true;
@@ -217,37 +242,36 @@ public class GameSurface extends PApplet{
 		}
 		
 	}
-	private int prevKeyCode(){
-		return keyCode;
-	}
+		
 	
 	/**
 	 * Handles key presses.
 	 */
 	public void keyPressed(){
 		
-		if(prevKeyCode() == UP){
+	if(keyCode == ' ' && jumpCount > 0){			
 			jumpCount--;
+			System.out.println("Jump Count: " + jumpCount);
+			snowball.jump();
 		}
 		
 		 if(snowball.onSurface()){
-			jumpCount = 2;
+			jumpCount = 1;
 		}
 	
 		 if(keyCode == LEFT){
 			snowball.moveLeft();
-			jumpCount = 2;
+			jumpCount = 1;
 		}
 		
 		 if(keyCode == RIGHT){
 			snowball.moveRight();
-			jumpCount = 2;
+			jumpCount = 1;
 		}
-		
-		if(keyCode == UP && jumpCount > 0){
-			System.out.println("Jump Count: " + jumpCount);
-			snowball.jump();
-		}
+	
+		 if(keyCode == UP){
+			 snowball.moveUp();
+		 }
 		
 		
 	}
