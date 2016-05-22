@@ -130,7 +130,6 @@ public class Snowball extends Shape3D implements Collidable{
 		for(int i = 0; i < obs.size(); i++) {
 			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
-				System.out.println("Snowball is colliding with something");
 				isColliding = true;
 				curColliding = o;
 				break;
@@ -148,7 +147,7 @@ public class Snowball extends Shape3D implements Collidable{
 				yVelocity = 0;
 				y = -(float)curColliding.getHeight() - 20; //sketchy stuff
 			}	
-			System.out.print("obsheight is " + curColliding.getHeight() + " and snowball y is " + this.y);
+			
 		}
 		
 		y += yVelocity;
@@ -178,6 +177,8 @@ public class Snowball extends Shape3D implements Collidable{
 		if(z > Path.WHEN_STUFF_DISSAPEARS) {
 			isGameOver = true;
 		}
+		
+		System.out.println("radius is " + r);
 			
 		score++;
 		r += .01;	
