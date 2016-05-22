@@ -22,7 +22,7 @@ import processing.core.PApplet;
 public class Snowball extends Shape3D implements Collidable{
 	public static int score;
 	private static final double GRAVITY = 0.7;
-	private double xVelocity, yVelocity;
+	private double xVelocity, yVelocity, zVelocity;
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
 	private float x, y, z, r;
@@ -94,6 +94,10 @@ public class Snowball extends Shape3D implements Collidable{
 		xVelocity = MOVE_SPEED;
 	}
 	
+	public void moveUp(){
+		zVelocity = MOVE_SPEED;
+	}
+	
 	/**
 	 * Increases the y velocity in the upward direction by a set amount.
 	 */
@@ -146,6 +150,7 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		y += yVelocity;
+		
 		if(y < 0){		
 			yVelocity += GRAVITY;		
 		}
@@ -164,6 +169,9 @@ public class Snowball extends Shape3D implements Collidable{
 				x = -path.getWidth()/2;
 			}
 		}
+		
+		if(z > 0)
+			z -= zVelocity;
 		
 		if(z > Path.WHEN_STUFF_DISSAPEARS) {
 			isGameOver = true;
@@ -187,9 +195,11 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public boolean collides(Collidable other) {		
 		if(this.getBoundingShape().intersect(other.getBoundingShape())){
+			isColliding = true;
 			return true;
 		}
 		else{
+			isColliding = false;
 			return false;
 		}
 	}

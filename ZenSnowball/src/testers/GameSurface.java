@@ -76,6 +76,12 @@ public class GameSurface extends PApplet{
 		noStroke();
 		lights();		
 		size(700,700,P3D);
+		if(isGame){
+			PImage img = loadImage("trees.png");
+			image (img,0,0);
+			background(img);
+
+		}
 	} 
 	 
 	/**
@@ -104,13 +110,32 @@ public class GameSurface extends PApplet{
 		background(255, 255, 255);
 		//System.out.println("draw() was called");
 		if(isGame){
-			int time = millis();
+			//int time = millis();
 			pushMatrix();
 			pushStyle();
-			colorMode(RGB);		
-			background(255);
-			stroke(0);
+			colorMode(RGB);	
 			lights();
+			background(255);
+			stroke(0,0,255,100);
+			fill(0, 0,255,100);
+			rect(0,0,700,350);
+			fill(0,0,255,50);		
+			
+			beginShape();
+			vertex(0, 350);
+			vertex(0, 700);
+			vertex(30, 700);
+			vertex(250, 350);
+			endShape(CLOSE);
+			
+			fill(0,0,255,50);
+			beginShape();
+			vertex(30, 20);
+			vertex(85, 20);
+			vertex(85, 75);
+			vertex(30, 75);
+			endShape(CLOSE);
+			
 			String back = "BACK";
 			fill(0);
 			textAlign(LEFT);
@@ -121,15 +146,17 @@ public class GameSurface extends PApplet{
 			textAlign(RIGHT);
 			textSize(24);
 			text(score, 450, 10, 200, 75);  
+			fill(255);
+			pushStyle();
 			popMatrix();
 			if(mousePressed && overRect( 10, 10, 100, 75)){
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
 				restart();
+				Snowball.score = 0;
 			}
 			
-		
 			fill(255);	
 			pushMatrix();
 			camera(); //will do something with camera later
@@ -145,17 +172,17 @@ public class GameSurface extends PApplet{
 			popMatrix(); 
 			runOnce();
 			
-			if(snowball.isColliding() || snowball.isGameOver()) {				
+//			if(snowball.isColliding() || snowball.isGameOver()) {		
+			if(snowball.isColliding()) {	
 				pushStyle();
 				textSize(30);
 				textAlign(CENTER);
 				fill(255, 0, 0);
 				text("Oops", width/2, height/2);
+				Snowball.score--;
 				popStyle();
 			}	
 
-
-				//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
 		}
 		
 		else if (isStartScreen){
@@ -222,7 +249,7 @@ public class GameSurface extends PApplet{
 	 */
 	public void keyPressed(){
 		
-		if(prevKeyCode() == UP){
+		if(prevKeyCode() == ' '){
 			jumpCount--;
 		}
 		
@@ -239,8 +266,11 @@ public class GameSurface extends PApplet{
 			snowball.moveRight();
 			jumpCount = 2;
 		}
-		
-		if(keyCode == UP && jumpCount > 0){
+	
+		 if(keyCode == UP){
+			 snowball.moveUp();
+		 }
+		if(keyCode == ' ' && jumpCount > 0){
 			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();
 		}
