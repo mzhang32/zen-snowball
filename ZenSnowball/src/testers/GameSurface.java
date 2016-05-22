@@ -63,10 +63,14 @@ public class GameSurface extends PApplet{
 	 */
 	public void restart(){
 		background(255);
+		fill(255);
 		path = new Path(500, 1000);
-		add(path);		
 		obstacles = path.getObstacles();
-		snowball.moveToOrigin();
+		snowball = new Snowball(0,0,0, INIT_RADIUS);
+		add(path);			
+		add(snowball);
+	
+
 	}
 	
 	/**
