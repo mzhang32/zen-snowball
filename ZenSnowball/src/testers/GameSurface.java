@@ -74,6 +74,7 @@ public class GameSurface extends PApplet{
 		noStroke();
 		lights();		
 		size(700,700,P3D);
+		colorMode(RGB);
 	} 
 	 
 	/**
@@ -104,17 +105,15 @@ public class GameSurface extends PApplet{
 		if(isGame){
 			int time = millis();
 			pushMatrix();
-			pushStyle();
-			colorMode(RGB);		
+			pushStyle();			
 			background(255);
-			stroke(0);
-			lights();
+			stroke(0);		
 			String back = "BACK";
 			fill(0);
 			textAlign(LEFT);
 			textSize(24);
 			text(back, 10, 10, 100, 75);  
-			String score = "Score: " + snowball.score;
+			String score = "Score: " + snowball.getScore();
 			fill(0);
 			textAlign(RIGHT);
 			textSize(24);
@@ -130,10 +129,13 @@ public class GameSurface extends PApplet{
 		
 			fill(255);	
 			pushMatrix();
-			camera(); //will do something with camera later
+			//camera(); //will do something with camera later
+			camera(width/2.0f, height/2.0f + path.getYTilt(), (float)((height/2.0) / Math.tan(Math.PI*30.0 / 180.0)), width/2.0f, height/2.0f, 0f, 0f, 1f, 0f);
 			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 			
 			popStyle();
+			
+			lights();
 			for(int x = 0; x < items.size(); x++){
 				items.get(x).draw(this);
 			}
@@ -141,19 +143,21 @@ public class GameSurface extends PApplet{
 				obstacles.get(x).draw(this);
 			}
 			popMatrix(); 
-			runOnce();
 			
-			if(snowball.isColliding() || snowball.isGameOver()) {				
+			if(!snowball.isGameOver()) {
+				runOnce();
+			}	
+			else if(snowball.isGameOver()) {
 				pushStyle();
 				textSize(30);
 				textAlign(CENTER);
 				fill(255, 0, 0);
-				text("Oops", width/2, height/2);
+				text("Game Over", width/2, height/3);
+				text("Score: " + snowball.getScore(), width/2, height/3 + height/15);
 				popStyle();
-			}	
+			}
 
-
-				//System.out.println("Size of ArrayList obstacles: " + obstacles.size());
+			
 		}
 		
 		else if (isStartScreen){
