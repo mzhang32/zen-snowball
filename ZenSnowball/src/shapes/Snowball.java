@@ -223,18 +223,17 @@ public class Snowball extends Shape3D implements Collidable{
 	public void act() {
 		
 	}
-<<<<<<< HEAD
+
 	
 	public int getScore() {
 		return score;
 	}
 
-=======
+
 	/**
 	 * Returns y coordinate of the snowball's center
 	 * @return y value of the snowball's center. 
 	 */
->>>>>>> 41f63dfcbb01ac154cd60d9b59f5f06e41099df4
 	public double getY() {
 		return y;
 	}
