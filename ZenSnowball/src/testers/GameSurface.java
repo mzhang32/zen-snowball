@@ -126,6 +126,7 @@ public class GameSurface extends PApplet{
 			textAlign(RIGHT);
 			textSize(24);
 			text(score, 450, 10, 200, 75);  
+			
 			fill(255);
 			pushStyle();
 			popMatrix();

@@ -135,7 +135,7 @@ public class Snowball extends Shape3D implements Collidable{
 			if(this.collides(o)) {
 				isColliding = true;
 				if(r > INIT_RADIUS)
-					r -= .05;
+					r -= .2;
 				curColliding = o;
 				break;
 			}
