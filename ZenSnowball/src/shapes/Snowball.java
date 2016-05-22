@@ -21,13 +21,16 @@ import processing.core.PApplet;
  */
 public class Snowball extends Shape3D implements Collidable{
 	private int score;
+	public static final double INIT_RADIUS = 30.0;
 	private static final double GRAVITY = 0.7;
 	private double xVelocity, yVelocity, zVelocity;
 	private static final double JUMP_STRENGTH = 15;
 	private static final double MOVE_SPEED = 5;
+	private static final double WIN_RADIUS = 60;//Set to 60
 	private float x, y, z, r;
 	private boolean isCollidingObstacle, isCollidingLittleSnowball;
 	private boolean isGameOver;
+	private boolean isWin;
 
 	private ArrayList<Shape> obstacles;
 	private boolean onASurface = true;
@@ -140,7 +143,10 @@ public class Snowball extends Shape3D implements Collidable{
 		for(int i = 0; i < obs.size(); i++) {
 			Obstacle o = obs.get(i);
 			if(this.collides(o)) {
+
 				isCollidingObstacle = true;
+				if(r > INIT_RADIUS)
+					r -= .05;
 				curColliding = o;
 				break;
 			}
@@ -187,10 +193,13 @@ public class Snowball extends Shape3D implements Collidable{
 		if(z > Path.WHEN_STUFF_DISSAPEARS) {
 			isGameOver = true;
 		}
+		else if(r > WIN_RADIUS) {
+			isWin = true;
+			isGameOver = true;
+		}
+		
 		
 		System.out.println("radius is " + r);
-			
-		score++;
 		r += .01;	
 	}
 		
@@ -249,12 +258,12 @@ public class Snowball extends Shape3D implements Collidable{
 		return isCollidingLittleSnowball;
 	}
 
-	/**
-	 * Does nothing. 
-	 */
-
 	public boolean isGameOver() {
 		return isGameOver;
+	}
+	
+	public boolean isWin() {
+		return isWin;
 	}
 	
 	public void act() {
@@ -263,7 +272,7 @@ public class Snowball extends Shape3D implements Collidable{
 
 	
 	public int getScore() {
-		return score;
+		return (int)(r - INIT_RADIUS);
 	}
 
 
