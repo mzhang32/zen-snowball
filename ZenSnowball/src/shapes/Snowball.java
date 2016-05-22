@@ -127,11 +127,11 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public void act(Path path) {
 		
-		ArrayList<Obstacle> obs = path.getObstacles();
+		ArrayList<Collidable> obs = path.getObstacles();
 		
-		Obstacle curColliding = null;
+		Collidable curColliding = null;
 		for(int i = 0; i < obs.size(); i++) {
-			Obstacle o = obs.get(i);
+			Collidable o = obs.get(i);
 			if(this.collides(o)) {
 				isColliding = true;
 				if(r > INIT_RADIUS)
@@ -144,13 +144,13 @@ public class Snowball extends Shape3D implements Collidable{
 			}
 		}
 		
-		if(isColliding) { //does not allow snowball to fall into obstacle from above
+		if(isColliding && curColliding instanceof Obstacle) { //does not allow snowball to fall into obstacle from above
 			if(this.z - this.r <= curColliding.getZ()) {
 				this.z = (float)curColliding.getZ() + this.r;
 			}
 			else {
 				yVelocity = 0;
-				y = -(float)curColliding.getHeight() - 20; //sketchy stuff
+				y = -(float)((Obstacle) curColliding).getHeight() - 20; //sketchy stuff
 			}	
 			
 		}
@@ -255,6 +255,13 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public double getY() {
 		return y;
+	}
+
+
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return z;
 	}
 		
 }

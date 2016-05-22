@@ -12,8 +12,7 @@ import processing.core.PApplet;
  * @version 05.16.2016
  */
 public class Path implements Drawable{
-	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
-	ArrayList<LittleSnowball> littlesnowballs = new ArrayList<LittleSnowball>();
+	ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
 	private float width;
 	private float depth;
 	public static final int WHEN_STUFF_DISSAPEARS = 250;
@@ -27,7 +26,7 @@ public class Path implements Drawable{
 	public Path(float width, float depth) {
 		this.width = width;
 		this.depth = depth;
-		ArrayList<Obstacle> o = new ArrayList<Obstacle>();
+		ArrayList<Collidable> o = new ArrayList<Collidable>();
 		obstacles.add(new Obstacle(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
@@ -38,9 +37,12 @@ public class Path implements Drawable{
 		obstacles.add(new Obstacle(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
 		obstacles.add(new Obstacle(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
 		addObstacles(o);
-		littlesnowballs.add(new LittleSnowball(0,0,-2800,10));
+		ArrayList<Collidable> littlesnowball = new ArrayList<Collidable>();
+		littlesnowball.add(new LittleSnowball(0,0,-2800,10));
+		addObstacles(littlesnowball);
 	}
-	
+
+
 	public void generateObstacle(float z){
 		double x = Math.random()*3;
 		
@@ -78,22 +80,19 @@ public class Path implements Drawable{
 		return 0;
 	}
 	
-	public ArrayList<Obstacle> getObstacles(){
+	public ArrayList<Collidable> getObstacles(){
 		return obstacles;
 	}
 		
-	public void addObstacles(ArrayList<Obstacle> o){
+	public void addObstacles(ArrayList<Collidable> o){
 		for(int x = 0; x < o.size(); x++){
 			obstacles.add(o.get(x));
 		}
 	}
 		
-	public void addObstacles(Obstacle o){
+	public void addObstacles(Collidable o){
 			obstacles.add(o);
 			
-	}
-	public ArrayList<LittleSnowball> getLittleSnowballs(){
-		return littlesnowballs;
 	}
 		
 	/**
@@ -101,15 +100,8 @@ public class Path implements Drawable{
 	 * @post All the obstacles on the path will move towards the positive z
 	 */
 	public void act() {
-		for(int x = 0; x < littlesnowballs.size(); x++){
-			littlesnowballs.get(x).act();
-			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS){
-				obstacles.remove(x);									
-			}	
-		}
 		for(int x = 0; x < obstacles.size(); x++) {
 			obstacles.get(x).act();
-			
 			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS){
 				obstacles.remove(x);									
 			}	
@@ -119,28 +111,27 @@ public class Path implements Drawable{
 		}
 
 	}
-		
 	
-	public void scroll(){
-		
-	}
 	/**
 	 *  Draws the path.
 	 *  
 	 *  @param p the PApplet used to draw the obstacle.
 	 */
 	public void draw(PApplet p) {
-		//System.out.println("Draw path called");
 		p.pushMatrix();
 		p.pushStyle();
 		p.stroke(0);
-		p.line(-width/2, 0, 0, -width/2, 0, -depth);//need to change z-coord
+		p.line(-width/2, 0, 0, -width/2, 0, -depth);
 		p.line(width/2, 0, 0, width/2, 0, -depth);
-	//	p.line(-width/2, 0, 0, width/2, 0, 0); //delete later x axis
-	//	p.line(0, -1000, 0, 0, 100, 0);//delete later y axis
-	//	p.line(0, 0, 10, 0, 0, -1000);//delete later z axis
 		p.popMatrix();
 		p.popStyle();
+	}
+
+
+	@Override
+	public double getZ() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

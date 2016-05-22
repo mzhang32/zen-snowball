@@ -9,7 +9,8 @@ public class LittleSnowball extends Snowball{
 		super(x, y, z, r);
 		// TODO Auto-generated constructor stub
 	}
+	
 	public void act(Path p){
-		this.z+=10;
+		this.z+=30;
 	}
 }
