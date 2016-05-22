@@ -48,7 +48,7 @@ public class GameSurface extends PApplet{
 	 */
 	public GameSurface(){
 		snowball = new Snowball(0,0,0,INIT_RADIUS);
-		add(snowball);
+		items.add(snowball);
 
 		//bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
 		//items.add(bigsnowball);
@@ -66,10 +66,9 @@ public class GameSurface extends PApplet{
 		fill(255);
 		path = new Path(500, 1000);
 		obstacles = path.getObstacles();
-		snowball = new Snowball(0,0,0, INIT_RADIUS);
-		add(path);			
-		add(snowball);
-	
+		snowball = new Snowball(0,0,0, INIT_RADIUS);	
+		items.add(snowball);
+		add(path);				
 
 	}
 	
@@ -115,26 +114,6 @@ public class GameSurface extends PApplet{
 			colorMode(RGB);	
 			lights();
 			background(255);
-			stroke(0,0,255,100);
-			fill(0, 0,255,100);
-			rect(0,0,700,350);
-			fill(0,0,255,50);		
-			
-			beginShape();
-			vertex(0, 350);
-			vertex(0, 700);
-			vertex(30, 700);
-			vertex(250, 350);
-			endShape(CLOSE);
-			
-			fill(0,0,255,50);
-			beginShape();
-			vertex(30, 20);
-			vertex(85, 20);
-			vertex(85, 75);
-			vertex(30, 75);
-			endShape(CLOSE);
-			
 			pushStyle();			
 			background(255);
 			stroke(0);		
@@ -155,6 +134,7 @@ public class GameSurface extends PApplet{
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
+				items.remove(snowball);
 				restart();
 			}
 			
@@ -233,7 +213,7 @@ public class GameSurface extends PApplet{
 			background(0,0,255);
 			stroke(255,0,0);
 			fill(255,0,0);
-			String instructions = "INSTRUCTIONS: Use the left, right, and up arrows to navigate Zen through the blustery winter wonderland. Zen must avoid all dangerous “rocks”(by jumping over them) as well as all snowballs larger than itself (by moving out of their way). While hitting a “rock” will decrease Zen’s size by X%, if Zen is unable to move out of the larger snowball’s way, Zen will be absorbed into the larger snowball. ";
+			String instructions = "INSTRUCTIONS: Use the left, right, and up arrows to navigate Zen through the blustery winter wonderland. Zen must avoid all dangerous ï¿½rocksï¿½(by jumping over them) as well as all snowballs larger than itself (by moving out of their way). While hitting a ï¿½rockï¿½ will decrease Zenï¿½s size by X%, if Zen is unable to move out of the larger snowballï¿½s way, Zen will be absorbed into the larger snowball. ";
 			fill(255);
 			textAlign(LEFT);
 			textSize(27);
