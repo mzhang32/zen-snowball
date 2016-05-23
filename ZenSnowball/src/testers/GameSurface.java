@@ -205,7 +205,11 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(56);
 			text(instructions, 250, 350, 425, 75);  
-			
+			if(keyPressed){
+				isGame = false;
+				isStartScreen= true;
+				isInstructions = false;
+			}
 			if(mousePressed && overRect(60, 350, 140, 75)){
 				isGame = true;
 				isStartScreen= false;
