@@ -260,7 +260,7 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 
 
-	@Override
+	
 	public double getZ() {
 		// TODO Auto-generated method stub
 		return z;
