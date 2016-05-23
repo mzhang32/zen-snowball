@@ -65,9 +65,9 @@ public class Snowball extends Shape3D implements Collidable{
 		p.pushStyle();
 		p.pushMatrix();
 		if(isColliding)
-			p.fill(255, 0, 0);
+		p.fill(255, 0, 0);
 		else
-			p.fill(255, 255, 255);
+		p.fill(255, 255, 255);
 		p.noStroke();
 		p.translate(x,y-r/2,z);				
 		p.sphere(r);	
@@ -146,13 +146,13 @@ public class Snowball extends Shape3D implements Collidable{
 			}
 		}
 		
-		if(isColliding && curColliding instanceof Obstacle) { //does not allow snowball to fall into obstacle from above
+		if(isColliding && curColliding instanceof Rock) { //does not allow snowball to fall into obstacle from above
 			if(this.z - this.r <= curColliding.getZ()) {
 				this.z = (float)curColliding.getZ() + this.r;
 			}
 			else {
 				yVelocity = 0;
-				y = -(float)((Obstacle) curColliding).getHeight() - 20; //sketchy stuff
+				y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
 			}	
 			
 		}
@@ -260,7 +260,6 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 
 
-	@Override
 	public double getZ() {
 		// TODO Auto-generated method stub
 		return z;

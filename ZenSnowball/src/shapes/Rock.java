@@ -13,9 +13,8 @@ import processing.core.PApplet;
  * @author Michelle Z. and Waveley Q.
  * @version 05.16.2016
  */
-public class Obstacle extends Shape3D implements Collidable{
+public class Rock extends Obstacle{
 
-	private float x, y, z;
 	private float width, height, depth;
 	
 	/**
@@ -29,10 +28,8 @@ public class Obstacle extends Shape3D implements Collidable{
 	 * @param height the height of the obstacle
 	 * @param depth the depth of the obstacle
 	 */
-	public Obstacle(float x, float y, float z, float width, float height, float depth) {
-		this.x = x;
-		this.y = y; 
-		this.z = z;
+	public Rock(float x, float y, float z, float width, float height, float depth) {
+		super(x,y,z);
 		this.width = width;
 		this.height = height;
 		this.depth = depth;
@@ -49,7 +46,7 @@ public class Obstacle extends Shape3D implements Collidable{
 		p.pushStyle();
 		p.stroke(0);
 		p.lights();
-		p.translate(x+width/2,y-height/2,z-depth/2); //Must translate to draw b/c processing drawing from center
+		p.translate((float)(getX()+width/2),(float)(getY()-height/2),(float)(getZ()-depth/2)); //Must translate to draw b/c processing drawing from center
 		p.box(width, height, depth);
 		p.popStyle();
 		p.popMatrix();	
@@ -60,24 +57,16 @@ public class Obstacle extends Shape3D implements Collidable{
 	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
 	 */
 	public void act(){
-		z += 10;
+		super.setZ((float)(getZ() + 10));
 	}
 	
 	public Bounds getBoundingShape() {
-		Point3d min = new Point3d(x, y-height, z-depth);
-		Point3d max = new Point3d(x + width, y, z);
+		Point3d min = new Point3d(getX(), getY()-height, getZ()-depth);
+		Point3d max = new Point3d(getX() + width, getY(), getZ());
 		return new BoundingBox(min, max);
 	}
 	
-	public double getX(){
-		return x;
-	}
-	public double getY(){
-		return y;
-	}
-	public double getZ(){
-		return z;
-	}
+	
 	public double getWidth(){
 		return width;
 	}

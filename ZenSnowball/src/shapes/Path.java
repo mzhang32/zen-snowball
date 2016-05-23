@@ -13,7 +13,6 @@ import processing.core.PApplet;
  */
 public class Path implements Drawable{
 	ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
-	//ArrayList<LittleSnowball> littlesnowballs = new ArrayList<LittleSnowball>();
 	private float width;
 	private float depth;
 	private double tilt;
@@ -29,15 +28,15 @@ public class Path implements Drawable{
 		this.width = width;
 		this.depth = depth;
 		ArrayList<Collidable> o = new ArrayList<Collidable>();
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -1200, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -1800, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(getWidth()/6, 0, -1600, getWidth()/3, 60, 60));	
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
-		obstacles.add(new Obstacle(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
+		obstacles.add(new Rock(-getWidth()/2, 0, -1200, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/6, 0, -1800, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(getWidth()/6, 0, -1600, getWidth()/3, 60, 60));	
+		obstacles.add(new Rock(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
 		addObstacles(o);
 		ArrayList<Collidable> littlesnowball = new ArrayList<Collidable>();
 		littlesnowball.add(new LittleSnowball(0,0,-2800,10));
@@ -49,15 +48,15 @@ public class Path implements Drawable{
 		double x = Math.random()*3;
 		
 		if(x > 2){
-			addObstacles(new Obstacle(-getWidth()/2, 0, z, getWidth()/3, 60, 60));
+			addObstacles(new Rock(-getWidth()/2, 0, z, getWidth()/3, 60, 60));
 
 		}
 		else if(x > 1){
-			addObstacles(new Obstacle(-getWidth()/6, 0, z, getWidth()/3, 60, 60));
+			addObstacles(new Rock(-getWidth()/6, 0, z, getWidth()/3, 60, 60));
 
 		}
 		else if(x > 0){
-			addObstacles(new Obstacle(getWidth()/6, 0, z, getWidth()/3, 60, 60));	
+			addObstacles(new Rock(getWidth()/6, 0, z, getWidth()/3, 60, 60));	
 		}
 //		}
 //			if(-getWidth()/x > -getWidth()/2){
@@ -108,12 +107,14 @@ public class Path implements Drawable{
 	public void act() {
 		
 		for(int x = 0; x < obstacles.size(); x++) {
+			
 			obstacles.get(x).act();
 			
 			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS){
 				obstacles.remove(x);									
 			}	
-			if(obstacles.size() < 9)
+			
+			if(obstacles.size() < 10)
 				generateObstacle(-2400);
 
 		}
@@ -121,10 +122,6 @@ public class Path implements Drawable{
 
 	}
 		
-	
-	public void scroll(){
-		
-	}
 	/**
 	 *  Draws the path.
 	 *  
@@ -137,14 +134,10 @@ public class Path implements Drawable{
 		p.stroke(0);
 		p.line(-width/2, 0, 0, -width/2, 0, -depth);//need to change z-coord
 		p.line(width/2, 0, 0, width/2, 0, -depth);
-	//	p.line(-width/2, 0, 0, width/2, 0, 0); //delete later x axis
-	//	p.line(0, -1000, 0, 0, 100, 0);//delete later y axis
-	//	p.line(0, 0, 10, 0, 0, -1000);//delete later z axis
 		p.popMatrix();
 		p.popStyle();
 	}
 
-	@Override
 	public double getZ() {
 		// TODO Auto-generated method stub
 		return 0;
