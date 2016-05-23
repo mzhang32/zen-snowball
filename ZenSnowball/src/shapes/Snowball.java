@@ -30,7 +30,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double MOVE_SPEED = 5;
 	
 	private float x, y, z, r;
-	private boolean isColliding;
+	private boolean isColliding, isEating;
 	private boolean isGameOver;
 	private boolean isWin;
 
@@ -129,7 +129,7 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public void act(Path path) {
 		
-		ArrayList<Collidable> obs = path.getObstacles();
+		ArrayList<Obstacle> obs = path.getObstacles();
 		
 		Collidable curColliding = null;
 		for(int i = 0; i < obs.size(); i++) {
@@ -156,6 +156,13 @@ public class Snowball extends Shape3D implements Collidable{
 			}	
 			
 		}
+		else if (isColliding && curColliding instanceof LittleSnowball){
+			r++;
+			isEating = true;
+		}
+		
+		else 
+			isEating = false;
 		
 		y += yVelocity;
 		
@@ -225,6 +232,12 @@ public class Snowball extends Shape3D implements Collidable{
 			isColliding = false;
 			return false;
 		}
+	}
+	public boolean isEating(){
+		return isEating;
+	}
+	public void setIsEating(boolean b){
+		isEating = b;
 	}
 	/**
 	 *Returns whether or not the snowball is on a surface.  

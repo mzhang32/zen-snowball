@@ -35,8 +35,14 @@ public class Obstacle extends Shape3D implements Collidable{
 		return z;
 	}
 	public boolean collides(Collidable other) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.getBoundingShape().intersect(other.getBoundingShape())){
+			//isColliding = true;
+			return true;
+		}
+		else{
+			//isColliding = false;
+			return false;
+		}
 	}
 
 	public Bounds getBoundingShape() {

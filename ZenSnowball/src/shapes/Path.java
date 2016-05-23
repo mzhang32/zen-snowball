@@ -12,7 +12,7 @@ import processing.core.PApplet;
  * @version 05.16.2016
  */
 public class Path implements Drawable{
-	ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
+	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private float width;
 	private float depth;
 	private double tilt;
@@ -28,7 +28,7 @@ public class Path implements Drawable{
 	public Path(float width, float depth) {
 		this.width = width;
 		this.depth = depth;
-		ArrayList<Collidable> o = new ArrayList<Collidable>();
+		ArrayList<Obstacle> o = new ArrayList<Obstacle>();
 		obstacles.add(new Rock(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
 		obstacles.add(new Rock(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
 		obstacles.add(new Rock(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
@@ -39,8 +39,8 @@ public class Path implements Drawable{
 		obstacles.add(new Rock(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
 		obstacles.add(new Rock(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
 		addObstacles(o);
-		ArrayList<Collidable> littlesnowball = new ArrayList<Collidable>();
-		littlesnowball.add(new LittleSnowball(0,0,-2800,10));
+		ArrayList<Obstacle> littlesnowball = new ArrayList<Obstacle>();
+		littlesnowball.add(new LittleSnowball(getWidth()/6,0,-500,10));
 		addObstacles(littlesnowball);
 		tilt = 0;
 	}
@@ -59,14 +59,6 @@ public class Path implements Drawable{
 		else if(x > 0){
 			addObstacles(new Rock(getWidth()/6, 0, z, getWidth()/3, 60, 60));	
 		}
-//		}
-//			if(-getWidth()/x > -getWidth()/2){
-//				addObstacles(new Obstacle((float)(-getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
-//			}
-//			else if (getWidth()/x < getWidth()/2){
-//				addObstacles(new Obstacle((float)(getWidth()/(x)), 0, z, getWidth()/3, 60, 60));
-//	
-//				}
 		
 	}
 		
@@ -80,24 +72,24 @@ public class Path implements Drawable{
 	
 	public void setYTilt(double tilt) {
 		this.tilt = tilt;
-System.out.println("Tile set to " + tilt);		
+		System.out.println("Tile set to " + tilt);		
 	}
 	
 	public float getYTilt() {
 		return (float)tilt;
 	}
 	
-	public ArrayList<Collidable> getObstacles(){
+	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
 	}
 		
-	public void addObstacles(ArrayList<Collidable> o){
+	public void addObstacles(ArrayList<Obstacle> o){
 		for(int x = 0; x < o.size(); x++){
 			obstacles.add(o.get(x));
 		}
 	}
 		
-	public void addObstacles(Collidable o){
+	public void addObstacles(Obstacle o){
 			obstacles.add(o);
 			
 	}
@@ -106,7 +98,7 @@ System.out.println("Tile set to " + tilt);
 	 * Calls the act method for every obstacle on the path
 	 * @post All the obstacles on the path will move towards the positive z
 	 */
-	public void act() {
+	public void act(Snowball s) {
 		
 		for(int x = 0; x < obstacles.size(); x++) {
 			
@@ -118,11 +110,7 @@ System.out.println("Tile set to " + tilt);
 			
 			if(obstacles.size() < 10)
 				generateObstacle(-2400);
-
 		}
-		
-		
-
 	}
 		
 	/**
@@ -144,6 +132,12 @@ System.out.println("Tile set to " + tilt);
 	public double getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
