@@ -16,6 +16,7 @@ public class Path implements Drawable{
 	ArrayList<LittleSnowball> littlesnowballs = new ArrayList<LittleSnowball>();
 	private float width;
 	private float depth;
+	private double tilt;
 	public static final int WHEN_STUFF_DISSAPEARS = 250;
 	
 	/**
@@ -39,6 +40,7 @@ public class Path implements Drawable{
 		obstacles.add(new Obstacle(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
 		addObstacles(o);
 		littlesnowballs.add(new LittleSnowball(0,0,-2800,10));
+		tilt = 0;
 	}
 	
 	public void generateObstacle(float z){
@@ -72,6 +74,10 @@ public class Path implements Drawable{
 	 */
 	public float getWidth() {
 		return width;
+	}
+	
+	public void setYTilt(double tilt) {
+		this.tilt = tilt;
 	}
 	
 	public float getYTilt() {
@@ -117,6 +123,7 @@ public class Path implements Drawable{
 				generateObstacle(-2400);
 
 		}
+		
 
 	}
 		

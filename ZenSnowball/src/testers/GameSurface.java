@@ -34,13 +34,12 @@ public class GameSurface extends PApplet{
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
-	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+	private ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
 
 	private boolean isGame = false;
 	private boolean isStartScreen = true;
 	private boolean isInstructions = false;
-	private LittleSnowball ls;
 
 	/**
 	 * Initializes the drawing surface and the objects of the game.
@@ -51,8 +50,6 @@ public class GameSurface extends PApplet{
 
 		//bigsnowball = new BigSnowball(0,0,-500, (float)(snowball.getRadius()*1.5));
 		//items.add(bigsnowball);
-		ls = new LittleSnowball(0,0,-2800,10);
-		items.add(ls);
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
@@ -88,8 +85,6 @@ public class GameSurface extends PApplet{
 	public void runOnce() {	 
 		path.act();
 		snowball.act(path);
-		ls.act(path);
-		//bigsnowball.act(path);
 		
 	}
 	
@@ -205,11 +200,7 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(56);
 			text(instructions, 250, 350, 425, 75);  
-			if(keyPressed){
-				isGame = false;
-				isStartScreen= true;
-				isInstructions = false;
-			}
+			
 			if(mousePressed && overRect(60, 350, 140, 75)){
 				isGame = true;
 				isStartScreen= false;
