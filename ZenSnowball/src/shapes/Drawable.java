@@ -21,5 +21,6 @@ public interface Drawable {
 	 * Causes the object to act. 
 	 */
 	void act();
+	
 	double getZ();
 }

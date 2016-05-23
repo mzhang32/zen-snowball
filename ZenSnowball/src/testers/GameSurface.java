@@ -30,12 +30,14 @@ public class GameSurface extends PApplet{
 	
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
+	public static final int Z_ORIGIN = -2400;
 	private int jumpCount = 1;
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
+	private ArrayList<Tree> trees = new ArrayList<Tree>();
 
 	private boolean isGame = false;
 	private boolean isStartScreen = true;
@@ -83,7 +85,7 @@ public class GameSurface extends PApplet{
 	public void runOnce() {	 
 		path.act(snowball);
 		snowball.act(path);
-		
+		moveEnvironment();
 	}
 	
 	/**
@@ -94,6 +96,17 @@ public class GameSurface extends PApplet{
 		items.add(c);
 	}
 	
+	public void moveEnvironment() {
+		for(int i = 0; i < trees.size(); i++) {
+			trees.get(i).act();
+		}
+		if(trees.size() < 10 && Math.random() < .1) {
+			float randX = (float)-Math.random()*((width-path.getWidth())/2) - path.getWidth()/2;
+			Tree newTree = new Tree(randX, 0, Z_ORIGIN);
+			trees.add(newTree);
+			add(newTree);
+		}
+	}
 	
 	/**
 	 * Runs repeatedly to draw all the objects onto the screen.
@@ -151,7 +164,7 @@ public class GameSurface extends PApplet{
 			
 			lights();
 			for(int x = 0; x < items.size(); x++){
-				items.get(x).draw(this);
+				items.get(x).draw(this);			
 			}
 			for(int x = 0; x < obstacles.size(); x++){
 //				if(snowball.isEating()){
