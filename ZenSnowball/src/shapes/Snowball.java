@@ -189,6 +189,15 @@ public class Snowball extends Shape3D implements Collidable{
 			isGameOver = true;
 		}
 		
+		if(r % 10 > 5) {
+			if(path.getYTilt() > 0)
+				path.setYTilt(path.getYTilt()-.3);
+		}
+		else{
+			if(path.getYTilt() < Path.MAX_TILT)
+				path.setYTilt(path.getYTilt()+.3);
+		}
+		
 		
 		System.out.println("radius is " + r);
 		r += .01;	
@@ -258,7 +267,6 @@ public class Snowball extends Shape3D implements Collidable{
 	public double getY() {
 		return y;
 	}
-
 
 	public double getZ() {
 		// TODO Auto-generated method stub

@@ -17,6 +17,7 @@ public class Path implements Drawable{
 	private float depth;
 	private double tilt;
 	public static final int WHEN_STUFF_DISSAPEARS = 250;
+	public static final int MAX_TILT = 100;
 	
 	/**
 	 * Constructs a path with a width and a depth(distance into the screen from the game's origin)
@@ -79,10 +80,11 @@ public class Path implements Drawable{
 	
 	public void setYTilt(double tilt) {
 		this.tilt = tilt;
+System.out.println("Tile set to " + tilt);		
 	}
 	
 	public float getYTilt() {
-		return 0;
+		return (float)tilt;
 	}
 	
 	public ArrayList<Collidable> getObstacles(){
@@ -118,6 +120,7 @@ public class Path implements Drawable{
 				generateObstacle(-2400);
 
 		}
+		
 		
 
 	}

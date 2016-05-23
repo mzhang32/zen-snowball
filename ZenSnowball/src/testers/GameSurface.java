@@ -47,6 +47,7 @@ public class GameSurface extends PApplet{
 	public GameSurface(){
 		snowball = new Snowball(0,0,0,(int)Snowball.INIT_RADIUS);
 		items.add(snowball);
+
 		path = new Path(500, 1000);
 		add(path);		
 		obstacles = path.getObstacles();
