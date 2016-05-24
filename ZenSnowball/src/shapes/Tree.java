@@ -17,7 +17,7 @@ public class Tree implements Drawable {
 	}
 	
 	public void draw(PApplet p) {
-System.out.println("Drawing tree");		
+		//System.out.println("Drawing tree");		
 		p.pushMatrix();
 		p.pushStyle();
 		//p.translate((float)(getX()+width/2),(float)(getY()-height/2),(float)(getZ()-depth/2)); //Must translate to draw b/c processing drawing from center
