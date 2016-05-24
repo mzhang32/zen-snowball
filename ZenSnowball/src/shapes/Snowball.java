@@ -286,11 +286,14 @@ public class Snowball extends Shape3D implements Collidable{
 		isGameOver = b;
 	}
 	
+	public void resetRadius(){
+		r = (float)INIT_RADIUS;
+	}
+	
 	public void restart(){
 		r = (float)INIT_RADIUS;
 		lives = 3;
 		isGameOver = false;
-		
 		isDead = false;
 	}
 	
