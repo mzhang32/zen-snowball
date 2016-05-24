@@ -198,7 +198,7 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		if(r % 10 > 5) {
-			if(path.getYTilt() > 0)
+			if(path.getYTilt() > Path.MIN_TILT)
 				path.setYTilt(path.getYTilt()-.3);
 		}
 		else{
@@ -206,7 +206,7 @@ public class Snowball extends Shape3D implements Collidable{
 				path.setYTilt(path.getYTilt()+.3);
 		}
 		
-			r += .01;	
+		r += .01;	
 
 	}
 		

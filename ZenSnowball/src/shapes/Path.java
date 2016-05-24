@@ -18,6 +18,7 @@ public class Path implements Drawable{
 	private double tilt;
 	public static final int WHEN_STUFF_DISSAPEARS = 250;
 	public static final int MAX_TILT = 100;
+	public static final int MIN_TILT = -200;
 	
 	/**
 	 * Constructs a path with a width and a depth(distance into the screen from the game's origin)
@@ -70,10 +71,9 @@ public class Path implements Drawable{
 		addObstacles(new BigSnowball(j, 0, -3700, 100));
 	}
 	public void generateLittleSnowball(){
-		
-			float j = (float)(Math.random()*this.width-width/2);
-			addObstacles(new LittleSnowball(j, 0, -1900, 10));
-		}
+		float j = (float)(Math.random()*this.width-width/2);
+		addObstacles(new LittleSnowball(j, 0, -1900, 10));	
+	}
 	/**
 	 * Returns the width of the path.
 	 * @return the width of the path.
@@ -128,13 +128,13 @@ public class Path implements Drawable{
 			
 			if(obstacles.size() < 10){
 				double y = Math.random()*20;
-					if(y > 9){
+				if(y > 9){
 					generateObstacle(-2400);
-					}
-					else if(y > 1){
-						generateLittleSnowball();
-					}
-					else {
+				}
+				else if(y > 1){
+					generateLittleSnowball();
+				}
+				else {
 					generateBigSnowball();
 				}
 			}
