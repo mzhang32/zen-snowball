@@ -20,9 +20,12 @@ public class Tree implements Drawable {
 System.out.println("Drawing tree");		
 		p.pushMatrix();
 		p.pushStyle();
-		//p.translate((float)(getX()+width/2),(float)(getY()-height/2),(float)(getZ()-depth/2)); //Must translate to draw b/c processing drawing from center
-		
-		//p.translate(x, y - image.height, z);
+		p.stroke(0);
+		p.translate(x, y, z);		
+		p.line(40, 0, 0, 40, -100, 0);
+		p.line(0,  -25, 0, 40, -50, 0);
+		p.line(40, -50, 0, 80, -25, 0);
+
 		p.popStyle();
 		p.popMatrix();	
 	}

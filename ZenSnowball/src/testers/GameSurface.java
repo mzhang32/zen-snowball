@@ -169,6 +169,7 @@ public class GameSurface extends PApplet{
 			for(int x = 0; x < obstacles.size(); x++){
 				obstacles.get(x).draw(this);
 			}
+			
 			popMatrix(); 
 			
 
