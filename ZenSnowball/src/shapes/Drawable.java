@@ -6,7 +6,7 @@ import processing.core.PApplet;
  * Represents a object that can be drawn with processing.
  * 
  * @author Michelle Z. and Waveley Q.
- * @version 05.16.2016
+ * @version 05.23.2016
  */
 public interface Drawable {
 	
@@ -17,10 +17,10 @@ public interface Drawable {
 	 * @pre The PApplet must be initialized.
 	 */
 	void draw(PApplet p);
-	/**
-	 * Causes the object to act. 
-	 */
-	void act();
 	
+	/**
+	 * Returns the z coordinate of the drawable object.
+	 * @return the z coordinate of the drawable object.
+	 */
 	double getZ();
 }

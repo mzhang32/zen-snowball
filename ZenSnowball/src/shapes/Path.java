@@ -6,10 +6,11 @@ import processing.core.PApplet;
 
 
 /**
- * This class handles creation of obstacles and moving them.
+ * This class handles creation of obstacles and moving them. The obstacles include the "rocks", big snowballs, and little
+ * snowballs.
  * 
  * @author Michelle Z. and Waveley Q.
- * @version 05.16.2016
+ * @version 05.23.2016
  */
 public class Path implements Drawable{
 	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
@@ -17,7 +18,7 @@ public class Path implements Drawable{
 	private float depth;
 	private double tilt;
 	public static final int WHEN_STUFF_DISSAPEARS = 250;
-	public static final int MAX_TILT = 100;
+	public static final int MAX_TILT = 120;
 	public static final int MIN_TILT = -200;
 	
 	/**
@@ -50,6 +51,10 @@ public class Path implements Drawable{
 		tilt = 0;
 	}
 	
+	/**
+	 * Adds new "rocks" to the path. The column to which a rock is added is random.
+	 * @param z the z coordinate at which the rocks will be added. 
+	 */
 	public void generateObstacle(float z){
 		double x = Math.random()*3;
 		
@@ -66,14 +71,23 @@ public class Path implements Drawable{
 		}
 		
 	}
+	
+	/**
+	 * Adds a big snowball to the path. The x location is random.
+	 */
 	public void generateBigSnowball(){
 		float j = (float)(Math.random()*this.width-width/2);
 		addObstacles(new BigSnowball(j, 0, -3700, 100));
 	}
+	
+	/**
+	 * Adds a small snowball to the path. The x location is random.
+	 */
 	public void generateLittleSnowball(){
 		float j = (float)(Math.random()*this.width-width/2);
 		addObstacles(new LittleSnowball(j, 0, -1900, 10));	
 	}
+	
 	/**
 	 * Returns the width of the path.
 	 * @return the width of the path.
@@ -82,36 +96,56 @@ public class Path implements Drawable{
 		return width;
 	}
 	
+	/**
+	 * Sets the tilt of the path. A negative tilt makes the path appear to tilt upwards, while a positive
+	 * tilt makes the path appear to tilt downwards.
+	 * @param tilt the amount of tilt.
+	 */
 	public void setYTilt(double tilt) {
-		this.tilt = tilt;
-		//System.out.println("Tile set to " + tilt);		
+		this.tilt = tilt;	
 	}
 	
+	/**
+	 * Returns the amount of tilt. A negative tilt means the path appears to tilt upwards, while a positive
+	 * tilt means the path appears to tilt downwards.
+	 * @return the amount of tilt
+	 */
 	public float getYTilt() {
 		return (float)tilt;
 	}
 	
+	/**
+	 * Returns an array list of all the obstacles on the path. This includes little and big snowballs and 
+	 * "rocks."
+	 * @return
+	 */
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
 	}
-		
+	
+	/**
+	 * Adds an array list of obstacles to the path.
+	 * @param o The array list of obstacles to add to the path.
+	 */
 	public void addObstacles(ArrayList<Obstacle> o){
 		for(int x = 0; x < o.size(); x++){
 			obstacles.add(o.get(x));
 		}
 	}
-		
+	
+	/**
+	 * Adds an obstacle to the path.
+	 * @param o The obstacle to add to the path.
+	 */
 	public void addObstacles(Obstacle o){
 			obstacles.add(o);
-			
 	}
 
 	/**
-	 * Calls the act method for every obstacle on the path
+	 * Calls the act method for every obstacle on the path. Also generates obstacles as appropriate.
 	 * @post All the obstacles on the path will move towards the positive z
 	 */
 	public void act(Snowball s) {
-		
 		for(int x = 0; x < obstacles.size(); x++) {
 			
 			obstacles.get(x).act();
@@ -122,9 +156,6 @@ public class Path implements Drawable{
 				if(obstacles.get(x) instanceof Rock || obstacles.get(x) instanceof LittleSnowball)
 				obstacles.remove(x);
 			}	
-//			if(s.isDead(obstacles.get(x))){
-//				
-//			}
 			
 			if(obstacles.size() < 10){
 				double y = Math.random()*20;
@@ -147,26 +178,21 @@ public class Path implements Drawable{
 	 *  @param p the PApplet used to draw the obstacle.
 	 */
 	public void draw(PApplet p) {
-		//System.out.println("Draw path called");
 		p.pushMatrix();
 		p.pushStyle();
 		p.stroke(0);
-		p.line(-width/2, 0, 0, -width/2, 0, -depth);//need to change z-coord
+		p.line(-width/2, 0, 0, -width/2, 0, -depth);
 		p.line(width/2, 0, 0, width/2, 0, -depth);
 		p.popMatrix();
 		p.popStyle();
 	}
 
+	/**
+	 * Returns the depth of the path.
+	 */
 	public double getZ() {
-		// TODO Auto-generated method stub
-		return 0;
+		return depth;
 	}
 
-	@Override
-	public void act() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }

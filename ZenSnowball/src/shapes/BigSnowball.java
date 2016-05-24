@@ -6,16 +6,30 @@ import javax.vecmath.Point3d;
 
 import processing.core.PApplet;
 
+/**
+ * Represents a big snowball that will engulf the snowball upon collision.
+ * 
+ * @author Michelle Z and Waveley Q
+ * @version 05.23.2016
+ */
 public class BigSnowball extends Obstacle{
 	
-	float r;
+	private float r;
+	
+	
+	/**
+	 * Constructs a big snowball with bottom point at (x, y, z) and radius r.
+	 * @param x the x coordinate of the bottom point of big snowball.
+	 * @param y the y coordinate of the bottom point of big snowball.
+	 * @param z the z coordinate of the bottom point of big snowball.
+	 * @param r the radius of the big snowball.
+	 */
 	public BigSnowball(float x, float y, float z, float r) {
 		super(x, y, z);
 		this.r = r;
 	}
 	
-	public void act(){
-		
+	public void act(){	
 		super.setZ((float)(getZ() + 25));
 	}
 	

@@ -66,9 +66,9 @@ public class Snowball extends Shape3D implements Collidable{
 		p.pushStyle();
 		p.pushMatrix();
 		if(isColliding || isDead)
-		p.fill(255, 0, 0);
+			p.fill(255, 0, 0);
 		else
-		p.fill(255, 255, 255);
+			p.fill(255, 255, 255);
 		p.noStroke();
 		p.translate(x,y-r/2,z);				
 		p.sphere(r);	
@@ -77,17 +77,13 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 
 	/**
-	 * Detects whether the object is colliding with another collidable.
-	 * 
-	 * @return true if the object collides with another object.
+	 * Moves the snowball to (0, 0, 0).
 	 */
-	
 	public void moveToOrigin(){
 		x = 0;
 		y = 0;
 		z = 0;
 	}
-
 
 	/**
 	 *  Decreases the snowball's velocity in the x direction by a set amount.
@@ -103,6 +99,9 @@ public class Snowball extends Shape3D implements Collidable{
 		xVelocity = MOVE_SPEED;
 	}
 	
+	/**
+	 * Sets the snowball's velocity in the z direction to MOVE_SPEED.
+	 */
 	public void moveUp(){
 		zVelocity = MOVE_SPEED;
 	}
@@ -116,8 +115,8 @@ public class Snowball extends Shape3D implements Collidable{
 	
 	
 	/**
-	 * returns radius of the Snowball. 
-	 * @return returns radius of the Snowball. 
+	 * Returns the radius of the Snowball. 
+	 * @return radius of the Snowball. 
 	 */
 	public float getRadius(){
 		return r;
@@ -152,16 +151,14 @@ public class Snowball extends Shape3D implements Collidable{
 				isEating = false;
 				if(this.z - this.r <= curColliding.getZ()) {
 					this.z = (float)curColliding.getZ() + this.r;
-					}
+				}
 				else {
 					yVelocity = 0;
 					y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
 				}				
-			}
-			
-		
-		else 
-			isEating = false;
+			}	
+			else 
+				isEating = false;
 		}
 		
 		y += yVelocity;
@@ -172,7 +169,8 @@ public class Snowball extends Shape3D implements Collidable{
 		else if(y >= 0){
 			yVelocity = 0;
 			y = 0;
-		}		
+		}
+		
 		if(yVelocity == 0){
 			x +=xVelocity;
 			if(x >= path.getWidth()/2 ){
@@ -211,8 +209,8 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 		
 	/**
-	 * 
-	 * @return A bounding sphere.
+	 * Returns a bounding shape the same size as the snowball.
+	 * @return A bounding shape.
 	 */
 	public Bounds getBoundingShape() {
 		Point3d center = new Point3d(x, y, z);
@@ -234,6 +232,11 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 	}
 	
+	/**
+	 * Returns whether the snowball is colliding with a little snowball.
+	 * @param c the other object to check.
+	 * @return true if the snowball is colliding with a little snowball.
+	 */
 	public boolean isEating(Collidable c){
 		if (c instanceof LittleSnowball && collides(c)){
 			isEating = true;
@@ -243,6 +246,11 @@ public class Snowball extends Shape3D implements Collidable{
 		return isEating;
 	}
 	
+	/**
+	 * Returns whether the snowball is colliding with a big snowball.
+	 * @param c the other object to check.
+	 * @return true if the snowball is colliding with a big snowball.
+	 */
 	public boolean isDying(Collidable c){
 		if (c instanceof BigSnowball && collides(c)){
 			System.out.println("collide with big snowbalL!");
@@ -257,7 +265,7 @@ public class Snowball extends Shape3D implements Collidable{
 	
 	
 	/**
-	 *Returns whether or not the snowball is on a surface.  
+	 * Returns whether or not the snowball is on a surface.  
 	 * @return boolean true if on a surface, false if otherwise. 
 	 */
 	public boolean onSurface(){
@@ -265,53 +273,85 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 
 	/** 
-	 * @return boolean true if is colliding, false if otherwise. 
+	 * @return boolean true if the snowball is colliding with an obstacle.
 	 */
 	public boolean isColliding() {
 		return isColliding;
 	}
+	
+	/**
+	 * 
+	 * @return true if the snowball is colliding with a big snowball.
+	 */
 	public boolean isDead(){
 		return isDead;
 	}
 	
+	/**
+	 * Brings the snowball back to life.
+	 * @param b
+	 */
 	public void revive(boolean b){
 		isDead = b;
 	}
 
+	/**
+	 * Returns whether the game is over.
+	 * @return true if the game is over.
+	 */
 	public boolean isGameOver() {
 		return isGameOver;
 	}
 	
+	/**
+	 * Sets whether the game is over.
+	 * @param b whether the game is over.
+	 */
 	public void setIsGameOver(boolean b){
 		isGameOver = b;
 	}
 	
+	/**
+	 * Sets the radius back to the initial size.
+	 */
+	public void resetRadius(){
+		r = (float)INIT_RADIUS;
+	}
+	
+	/**
+	 * Resets the radius and lives of the snowball.
+	 */
 	public void restart(){
 		r = (float)INIT_RADIUS;
 		lives = 3;
 		isGameOver = false;
-		
 		isDead = false;
 	}
 	
+	/**
+	 * Returns whether the game has been won.
+	 * @return true if the game has been won.
+	 */
 	public boolean isWin() {
 		return isWin;
 	}
 	
-	public void act() {
-		
-	}
-
-	
+	/**
+	 * Returns the score.
+	 * @return the score.
+	 */
 	public int getScore() {
 		return (int)(r - INIT_RADIUS);
 	}
-	public int getLives(){
-			System.out.println("getLives() was called");
-			return lives;
-	}
 	
-
+	/**
+	 * Returns the number of lives left.
+	 * @return The number of lives left.
+	 */
+	public int getLives(){
+		System.out.println("getLives() was called");
+		return lives;
+	}
 
 	/**
 	 * Returns y coordinate of the snowball's center
@@ -321,8 +361,11 @@ public class Snowball extends Shape3D implements Collidable{
 		return y;
 	}
 
+	/**
+	 * Returns z coordinate of the snowball's center
+	 * @return z value of the snowball's center. 
+	 */
 	public double getZ() {
-		// TODO Auto-generated method stub
 		return z;
 	}
 		

@@ -1,7 +1,7 @@
 package shapes;
 
 import processing.core.PApplet;
-import processing.core.PImage;
+
 
 /**
  * Represents a tree outside of the path.
@@ -13,6 +13,7 @@ public class Tree implements Drawable {
 
 	public static final int WIDTH = 100;
 	public static final int HEIGHT = 120;
+	private static final int MOVE_BY = 10;
 	private float x, y, z;
 	
 	/**
@@ -55,7 +56,7 @@ public class Tree implements Drawable {
 	 * Moves the tree forward toward the screen.
 	 */
 	public void act() {
-		z += 10;
+		z += MOVE_BY;
 		
 	}
 

@@ -1,15 +1,5 @@
 package testers;
 
-//import java.awt.event.KeyEvent;
-//import java.awt.event.KeyListener;
-//
-//import javax.swing.JPanel;
-//import java.awt.*;
-//import java.awt.event.*;
-//import java.awt.geom.AffineTransform;
-//
-//import javax.media.j3d.BranchGroup;
-//import javax.swing.*;
 
 import java.util.*;
 
@@ -55,6 +45,10 @@ public class GameSurface extends PApplet{
 		obstacles = path.getObstacles();
 
 	}
+	
+	/**
+	 * Continues the game after a live has been lost.
+	 */
 	public void restartInGame(){
 		background(255);
 		fill(255);
@@ -75,7 +69,6 @@ public class GameSurface extends PApplet{
 		fill(255);
 		path = new Path(500, 1000);
 		obstacles = path.getObstacles();
-		//snowball = new Snowball(0,0,0, (int)Snowball.INIT_RADIUS);	
 		snowball.restart();
 		snowball.moveToOrigin();	
 		items.add(snowball);
@@ -110,10 +103,13 @@ public class GameSurface extends PApplet{
 		items.add(c);
 	}
 	
+	/**
+	 * Scrolls the environment outside of the path.
+	 */
 	public void moveEnvironment() {
 		for(int i = 0; i < trees.size(); i++) {
 			Tree tree = trees.get(i);
-			if(tree.getZ() > path.WHEN_STUFF_DISSAPEARS) {
+			if(tree.getZ() > Path.WHEN_STUFF_DISSAPEARS) {
 				trees.remove(i);
 				items.remove(tree);
 				i--;
@@ -122,7 +118,7 @@ public class GameSurface extends PApplet{
 				trees.get(i).act();
 			
 		}
-	System.out.println((trees.size() + 1.0)/60);
+
 		if(trees.size() < 15 && Math.random() < 3.0/(16*(trees.size()+1))) {	
 			
 			float randX;
@@ -141,9 +137,8 @@ public class GameSurface extends PApplet{
 	 */
 	public void draw(){
 		background(255, 255, 255);
-		//System.out.println("draw() was called");
+
 		if(isGame){
-			//int time = millis();
 			pushMatrix();
 			pushStyle();
 			colorMode(RGB);	
@@ -178,13 +173,11 @@ public class GameSurface extends PApplet{
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
-				//items.remove(snowball);
 				restart();
 			}
 			
 			fill(255);	
 			pushMatrix();
-			//camera(); //will do something with camera later
 			camera(width/2.0f, height/2.0f + path.getYTilt(), (float)((height/2.0) / Math.tan(Math.PI*30.0 / 180.0)), width/2.0f, height/2.0f, 0f, 0f, 1f, 0f);
 			translate(width/2, height-height/10, -Z_FROM_SCREEN); //IMPORTANT translated everything
 			
@@ -195,8 +188,7 @@ public class GameSurface extends PApplet{
 				items.get(x).draw(this);			
 			}
 			for(int x = 0; x < obstacles.size(); x++){
-					obstacles.get(x).draw(this);
-				
+					obstacles.get(x).draw(this);	
 			}
 			
 			popMatrix(); 
@@ -204,9 +196,7 @@ public class GameSurface extends PApplet{
 			if(!snowball.isGameOver() && !snowball.isDead()) {
 				runOnce();
 			}	
-			
-			else if(snowball.isDead()){
-				
+			else if(snowball.isDead()){	
 				if(snowball.getLives() > 0){
 					pushStyle();
 					textSize(30);
@@ -221,22 +211,18 @@ public class GameSurface extends PApplet{
 						restartInGame();
 					}
 				}
-					else{
-						pushStyle();
-						textSize(30);
-						textAlign(CENTER);
-						fill(255, 0, 0);
-						text("Game Over", width/2, height/3);
-						text("Score: " + snowball.getScore(), width/2, height/3 + height/15);
-						popStyle();
-					}
+				else {
+					pushStyle();
+					textSize(30);
+					textAlign(CENTER);
+					fill(255, 0, 0);
+					text("Game Over", width/2, height/3);
+					text("Score: " + snowball.getScore(), width/2, height/3 + height/15);
+					popStyle();
+				}
 				popStyle();
 
-				}
-				
-				//popStyle();
-			
-			
+			}
 			else if(snowball.isWin()) {
 				pushStyle();
 				textSize(30);
@@ -255,8 +241,7 @@ public class GameSurface extends PApplet{
 				popStyle();
 			}
 
-		}
-		
+		}	
 		else if (isStartScreen){
 			PImage img = loadImage("ZenSnowball.png");
 			image (img,0,0);
@@ -319,7 +304,7 @@ public class GameSurface extends PApplet{
 	 */
 	public void keyPressed(){
 		
-	if( jumpCount > 0 && keyCode == ' '){
+		if( jumpCount > 0 && keyCode == ' '){
 			snowball.jump();			
 			jumpCount--;
 

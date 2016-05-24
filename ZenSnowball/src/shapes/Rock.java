@@ -1,6 +1,6 @@
 package shapes;
 
-import javax.media.j3d.Shape3D;
+
 import javax.vecmath.Point3d;
 import javax.media.j3d.Bounds;
 import javax.media.j3d.BoundingBox;
@@ -11,14 +11,15 @@ import processing.core.PApplet;
  * This class represents the "rocks" the Snowball is not supposed to collide with.
  * 
  * @author Michelle Z. and Waveley Q.
- * @version 05.16.2016
+ * @version 05.23.2016
  */
 public class Rock extends Obstacle{
 
 	private float width, height, depth;
+	private static final int MOVE_BY = 10;
 	
 	/**
-	 * Creates an Obstacles with bottom-left-closest to viewer-corner coordinates at x, y, z, 
+	 * Creates an Rock with bottom-left-closest to viewer-corner coordinates at x, y, z, 
 	 * and dimensions width, height, depth.
 	 * 
 	 * @param x the x coordinate
@@ -37,7 +38,7 @@ public class Rock extends Obstacle{
 	
 	
 	/**
-	 *  Draws the obstacle as a rectangular prism.
+	 *  Draws the rock as a rectangular prism.
 	 *  
 	 *  @param p the PApplet used to draw the obstacle.
 	 */
@@ -54,33 +55,47 @@ public class Rock extends Obstacle{
 
 
 	/**
-	 * Gets called repeatedly to move forward towards the player. Also handles collision detection.
+	 * Gets called repeatedly to move forward towards the player.
 	 */
 	public void act(){
-		super.setZ((float)(getZ() + 10));
+		super.setZ((float)(getZ() + MOVE_BY));
 	}
 	
+	/**
+	 * Returns a bounding shape the same size as this rock.
+	 * 
+	 * @return the bounding shape.
+	 */
 	public Bounds getBoundingShape() {
 		Point3d min = new Point3d(getX(), getY()-height, getZ()-depth);
 		Point3d max = new Point3d(getX() + width, getY(), getZ());
 		return new BoundingBox(min, max);
 	}
 	
-	
+	/**
+	 * Returns the width of this rock.
+	 * @return the width of this rock.
+	 */
 	public double getWidth(){
 		return width;
 	}
+	
+	/**
+	 * Returns the height of this rock.
+	 * @return the height of this rock.
+	 */
 	public double getHeight(){
 		return height;
 	}
+	
+	/**
+	 * Returns the depth of this rock.
+	 * @return the depth of this rock.
+	 */
 	public double getDepth(){
 		return depth;
 	}
 
-
-	public boolean collides(Collidable other) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	
 }
