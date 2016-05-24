@@ -29,23 +29,23 @@ public class Path implements Drawable{
 		this.width = width;
 		this.depth = depth;
 		ArrayList<Obstacle> o = new ArrayList<Obstacle>();
-		obstacles.add(new Rock(-getWidth()/2, 0, -800, getWidth()/3, 60, 60));
-		obstacles.add(new Rock(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
-		obstacles.add(new Rock(getWidth()/6, 0, -1400, getWidth()/3, 60, 60));	
 		obstacles.add(new Rock(-getWidth()/2, 0, -1200, getWidth()/3, 60, 60));
 		obstacles.add(new Rock(-getWidth()/6, 0, -1800, getWidth()/3, 60, 60));
-		obstacles.add(new Rock(-getWidth()/6, 0, -1000, getWidth()/3, 60, 60));
-		obstacles.add(new Rock(getWidth()/6, 0, -1600, getWidth()/3, 60, 60));	
+		obstacles.add(new Rock(getWidth()/6, 0, -1800, getWidth()/3, 60, 60));	
 		obstacles.add(new Rock(-getWidth()/2, 0, -1600, getWidth()/3, 60, 60));
-		obstacles.add(new Rock(-getWidth()/2, 0, -1800, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/6, 0, -2200, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/6, 0, -1400, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(getWidth()/6, 0, -2000, getWidth()/3, 60, 60));	
+		obstacles.add(new Rock(-getWidth()/2, 0, -2000, getWidth()/3, 60, 60));
+		obstacles.add(new Rock(-getWidth()/2, 0, -2200, getWidth()/3, 60, 60));
 		addObstacles(o);
 		ArrayList<Obstacle> littlesnowball = new ArrayList<Obstacle>();
-		littlesnowball.add(new LittleSnowball(getWidth()/6,0,-500,10));
-		littlesnowball.add(new LittleSnowball(-getWidth()/6, 0, -700, 10));
-		littlesnowball.add(new LittleSnowball(-getWidth()/2, 0, -300, 10));
+		littlesnowball.add(new LittleSnowball(getWidth()/6,0,-900,10));
+		littlesnowball.add(new LittleSnowball(-getWidth()/6, 0, -1100, 10));
+		littlesnowball.add(new LittleSnowball(-getWidth()/2, 0, -700, 10));
 		addObstacles(littlesnowball);
 		ArrayList<Obstacle> bigsnowball = new ArrayList<Obstacle>();
-		bigsnowball.add(new BigSnowball(getWidth()/6, 0, -3100, 75));
+		bigsnowball.add(new BigSnowball(getWidth()/6, 0, -3500, 75));
 		tilt = 0;
 	}
 	
@@ -67,12 +67,12 @@ public class Path implements Drawable{
 	}
 	public void generateBigSnowball(){
 		float j = (float)(Math.random()*this.width-width/2);
-		addObstacles(new BigSnowball(j, 0, -3700, 100));
+		addObstacles(new BigSnowball(j, 0, -4100, 100));
 	}
 	public void generateLittleSnowball(){
 		
 			float j = (float)(Math.random()*this.width-width/2);
-			addObstacles(new LittleSnowball(j, 0, -1900, 10));
+			addObstacles(new LittleSnowball(j, 0, -2300, 10));
 		}
 	/**
 	 * Returns the width of the path.
@@ -129,7 +129,7 @@ public class Path implements Drawable{
 			if(obstacles.size() < 10){
 				double y = Math.random()*20;
 					if(y > 9){
-					generateObstacle(-2400);
+					generateObstacle(-2800);
 					}
 					else if(y > 1){
 						generateLittleSnowball();
