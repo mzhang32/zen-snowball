@@ -31,6 +31,7 @@ public class GameSurface extends PApplet{
 	public static final int Z_FROM_SCREEN = 50;
 	public static final int OBSTACLE_WIDTH = 100;
 	public static final int Z_ORIGIN = -2400;
+	public static final int PATH_WIDTH = 500;
 	private int jumpCount = 1;
 	private Snowball snowball;
 	private Path path;
@@ -49,7 +50,7 @@ public class GameSurface extends PApplet{
 		snowball = new Snowball(0,0,0,(int)Snowball.INIT_RADIUS);
 		items.add(snowball);
 
-		path = new Path(500, 1000);
+		path = new Path(PATH_WIDTH, -Z_ORIGIN);
 		add(path);		
 		obstacles = path.getObstacles();
 
@@ -111,13 +112,27 @@ public class GameSurface extends PApplet{
 	
 	public void moveEnvironment() {
 		for(int i = 0; i < trees.size(); i++) {
-			trees.get(i).act();
+			Tree tree = trees.get(i);
+			if(tree.getZ() > path.WHEN_STUFF_DISSAPEARS) {
+				trees.remove(i);
+				items.remove(tree);
+				i--;
+			}	
+			else
+				trees.get(i).act();
+			
 		}
-		if(trees.size() < 10 && Math.random() < .1) {
-			float randX = (float)-Math.random()*((width-path.getWidth())/2) - path.getWidth()/2;
+	System.out.println((trees.size() + 1.0)/60);
+		if(trees.size() < 15 && Math.random() < 3.0/(16*(trees.size()+1))) {	
+			
+			float randX;
+			if(Math.random() < .5) 
+				randX = (float)-Math.random()*(width) - path.getWidth()/2 - Tree.WIDTH;
+			else
+				randX = (float)Math.random()*(width) + path.getWidth()/2;
 			Tree newTree = new Tree(randX, 0, Z_ORIGIN);
 			trees.add(newTree);
-			add(newTree);
+			items.add(newTree);
 		}
 	}
 	

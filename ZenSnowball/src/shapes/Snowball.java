@@ -207,6 +207,7 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 			r += .01;	
+
 	}
 		
 	/**

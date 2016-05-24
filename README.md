@@ -4,10 +4,10 @@ Michelle Zhang and Waveley Qiu
 05.17.2016
 
 Introduction: 
-Once upon a time, on a mountaintop far far away, there was a young snowball named Zen. Zen was rolling along the mountain side when it slipped and started tumbling down uncontrollably. Can you help Zen get to the bottom of the mountain? Zen Snowball™ is a single player game in which the player takes control of a out-of-control snowball, aspiring to collect smaller snowballs to grow bigger and avoid obstacles(“rocks”) that will shatter the snowball. Zen can only move side to side and jump, and must stay on the mountain path. The longer the player can last, the more points they get. 
+Once upon a time, on a mountaintop far far away, there was a young snowball named Zen. Zen was rolling along the mountain side when it slipped and started tumbling down uncontrollably. Can you help Zen get to the bottom of the mountain? Zen Snowball™ is a single player game in which the player takes control of a out-of-control snowball, aspiring to collect smaller snowballs to grow bigger and avoid obstacles(“rocks”) that will shatter the snowball bu reducing its size. Zen can only move side to side, forward, and jump, and must stay on the mountain path. The longer the player can last, the more points they get. 
 
 Instructions:
-Use the left, right, and up arrows to navigate Zen through the blustery winter wonderland. Zen must avoid all dangerous “rocks”(by jumping over them) as well as all snowballs larger than itself (by moving out of their way). While hitting a “rock” will decrease Zen’s size by X%, if Zen is unable to move out of the larger snowball’s way, Zen will be absorbed into the larger snowball. 
+Use the LEFT, RIGHT, and UP arrows to navigate Zen through the blustery winter wonderland. Zen must avoid all dangerous “rocks” by jumping over them using the SPACE bar as well as avoid all snowballs larger than itself by moving out of their way. If ZenSnowball encounters a rock its size will decrease. If Zen is unable to move out of the larger snowball’s way, Zen will be absorbed into the larger snowball, and lose a life. Zen begins with three lives. The game is over when Zen is stuck on a rock for too long and exits the view or when Zen loses all three lives. The game is won when Zen reaches a certain size.    
 	
 Features List:
 	Must-Have features
@@ -38,17 +38,18 @@ Class List:
 	-BigSnowball
 	-LittleSnowball
 	-Obstacle
+	-Rock
 	-Path
 	-Drawable(interface)
 	-Collidable(interface)
+	-Tree
 	-GameSurface
 	-Main
 
 
 Package: 
 	-Shapes
-	-Graphics
-	-UserInput
+	-Testers
 
 Responsibilities List:
 
