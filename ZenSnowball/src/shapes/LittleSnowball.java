@@ -9,12 +9,9 @@ import processing.core.PApplet;
 public class LittleSnowball extends Obstacle{
 	
 	float r;
-	private boolean isColliding;
 	public LittleSnowball(float x, float y, float z, float r) {
 		super(x, y, z);
 		this.r = r;
-		isColliding = false;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void act(){

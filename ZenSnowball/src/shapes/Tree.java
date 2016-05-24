@@ -34,6 +34,7 @@ public class Tree implements Drawable {
 	 *  @param p the PApplet used to draw the tree.
 	 */
 	public void draw(PApplet p) {
+
 		p.pushMatrix();
 		p.pushStyle();
 		p.stroke(0);

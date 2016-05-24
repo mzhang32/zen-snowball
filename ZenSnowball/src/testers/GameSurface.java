@@ -34,7 +34,6 @@ public class GameSurface extends PApplet{
 	public static final int PATH_WIDTH = 500;
 	private int jumpCount = 1;
 	private Snowball snowball;
-	//private BigSnowball bigsnowball;
 	private Path path;
 	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
@@ -56,6 +55,18 @@ public class GameSurface extends PApplet{
 		obstacles = path.getObstacles();
 
 	}
+	public void restartInGame(){
+		background(255);
+		fill(255);
+		path = new Path(500, 1000);
+		obstacles = path.getObstacles();
+		snowball.revive(false);
+		snowball.moveToOrigin();	
+		items.add(snowball);
+		add(path);	
+		System.out.println("Game Restarted");
+	}
+	
 	/**
 	 * Restarts the game. 
 	 */
@@ -64,7 +75,9 @@ public class GameSurface extends PApplet{
 		fill(255);
 		path = new Path(500, 1000);
 		obstacles = path.getObstacles();
-		snowball = new Snowball(0,0,0, (int)Snowball.INIT_RADIUS);	
+		//snowball = new Snowball(0,0,0, (int)Snowball.INIT_RADIUS);	
+		snowball.restart();
+		snowball.moveToOrigin();	
 		items.add(snowball);
 		add(path);				
 
@@ -144,7 +157,7 @@ public class GameSurface extends PApplet{
 			textAlign(LEFT);
 			textSize(24);
 			text(back, 10, 10, 100, 75);  
-			String score = "Score: " + snowball.getScore();
+			String score = "Score: " + snowball.getScore() + "\nLives: " + snowball.getLives();
 			fill(0);
 			textAlign(RIGHT);
 			textSize(24);
@@ -165,7 +178,7 @@ public class GameSurface extends PApplet{
 				isGame = false;
 				isStartScreen= true;
 				isInstructions = false;
-				items.remove(snowball);
+				//items.remove(snowball);
 				restart();
 			}
 			
@@ -187,11 +200,43 @@ public class GameSurface extends PApplet{
 			}
 			
 			popMatrix(); 
-				
 			
-			if(!snowball.isGameOver()) {
+			if(!snowball.isGameOver() && !snowball.isDead()) {
 				runOnce();
 			}	
+			
+			else if(snowball.isDead()){
+				
+				if(snowball.getLives() > 0){
+					pushStyle();
+					textSize(30);
+					textAlign(CENTER);
+					fill(255, 0, 0);
+					text("You Died! Lives Left: " + snowball.getLives(), width/2, height/3);
+					fill(0,0,0);
+					textSize(18);
+					text("Press SPACE to continue.", width/2, height/3+height/12);
+					if(keyPressed){
+						System.out.println("Key Pressed");
+						restartInGame();
+					}
+				}
+					else{
+						pushStyle();
+						textSize(30);
+						textAlign(CENTER);
+						fill(255, 0, 0);
+						text("Game Over", width/2, height/3);
+						text("Score: " + snowball.getScore(), width/2, height/3 + height/15);
+						popStyle();
+					}
+				popStyle();
+
+				}
+				
+				//popStyle();
+			
+			
 			else if(snowball.isWin()) {
 				pushStyle();
 				textSize(30);
@@ -275,8 +320,6 @@ public class GameSurface extends PApplet{
 	public void keyPressed(){
 		
 	if( jumpCount > 0 && keyCode == ' '){
-		//if( keyCode == ' '){		
-			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();			
 			jumpCount--;
 

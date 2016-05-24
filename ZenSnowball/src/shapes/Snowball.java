@@ -21,6 +21,7 @@ import processing.core.PApplet;
  */
 public class Snowball extends Shape3D implements Collidable{
 	private int score;
+	private int lives;
 	public static final double INIT_RADIUS = 30.0;
 	public static final double WIN_RADIUS = 60;//Set to 60
 	
@@ -30,7 +31,7 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double MOVE_SPEED = 5;
 	
 	private float x, y, z, r;
-	private boolean isColliding, isEating;
+	private boolean isColliding, isEating, isDead;
 	private boolean isGameOver;
 	private boolean isWin;
 
@@ -44,10 +45,12 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public Snowball(float x, float y, float z, float r){
 		score = 0;
+		lives = 3;
 		this.x = x;
 		this.y = y; 
 		this.z = z;
 		this.r = r;
+		isDead = false;
 		isColliding = false;
 		isEating = false;
 		isGameOver = false;
@@ -62,7 +65,7 @@ public class Snowball extends Shape3D implements Collidable{
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();
-		if(isColliding)
+		if(isColliding || isDead)
 		p.fill(255, 0, 0);
 		else
 		p.fill(255, 255, 255);
@@ -155,6 +158,7 @@ public class Snowball extends Shape3D implements Collidable{
 					y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
 				}				
 			}
+			
 		
 		else 
 			isEating = false;
@@ -185,7 +189,8 @@ public class Snowball extends Shape3D implements Collidable{
 			z -= zVelocity;
 		
 		if(z > Path.WHEN_STUFF_DISSAPEARS) {
-			isGameOver = true;
+			isDead = true;
+			lives--;
 		}
 		else if(r > WIN_RADIUS) {
 			isWin = true;
@@ -201,9 +206,8 @@ public class Snowball extends Shape3D implements Collidable{
 				path.setYTilt(path.getYTilt()+.3);
 		}
 		
-		
-		//System.out.println("radius is " + r);
-		r += .01;	
+			r += .01;	
+
 	}
 		
 	/**
@@ -229,6 +233,7 @@ public class Snowball extends Shape3D implements Collidable{
 			return false;
 		}
 	}
+	
 	public boolean isEating(Collidable c){
 		if (c instanceof LittleSnowball && collides(c)){
 			isEating = true;
@@ -237,6 +242,19 @@ public class Snowball extends Shape3D implements Collidable{
 			isEating = false;
 		return isEating;
 	}
+	
+	public boolean isDying(Collidable c){
+		if (c instanceof BigSnowball && collides(c)){
+			System.out.println("collide with big snowbalL!");
+			isDead = true;
+			lives--;
+			if(lives <1){
+				isGameOver = true;
+			}
+		}
+		return isDead;
+	}
+	
 	
 	/**
 	 *Returns whether or not the snowball is on a surface.  
@@ -252,10 +270,28 @@ public class Snowball extends Shape3D implements Collidable{
 	public boolean isColliding() {
 		return isColliding;
 	}
+	public boolean isDead(){
+		return isDead;
+	}
 	
+	public void revive(boolean b){
+		isDead = b;
+	}
 
 	public boolean isGameOver() {
 		return isGameOver;
+	}
+	
+	public void setIsGameOver(boolean b){
+		isGameOver = b;
+	}
+	
+	public void restart(){
+		r = (float)INIT_RADIUS;
+		lives = 3;
+		isGameOver = false;
+		
+		isDead = false;
 	}
 	
 	public boolean isWin() {
@@ -270,6 +306,11 @@ public class Snowball extends Shape3D implements Collidable{
 	public int getScore() {
 		return (int)(r - INIT_RADIUS);
 	}
+	public int getLives(){
+			System.out.println("getLives() was called");
+			return lives;
+	}
+	
 
 
 	/**
