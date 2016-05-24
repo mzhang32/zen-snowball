@@ -15,6 +15,7 @@ public class Main extends JFrame{
 		game.init();
 		add(game);
 		setVisible(true);
+		setResizable(false);
 	}
 	public static void main(String[]args) 
 	{

@@ -157,8 +157,9 @@ public class Path implements Drawable{
 				obstacles.remove(x);
 			}	
 			
-			if(obstacles.size() < 10){
-				double y = Math.random()*20;
+			if(obstacles.size() < 13){
+				
+				double y = Math.random()*25;
 				if(y > 9){
 					generateObstacle(-2800);
 				}

@@ -58,7 +58,6 @@ public class GameSurface extends PApplet{
 		snowball.moveToOrigin();	
 		items.add(snowball);
 		add(path);	
-		System.out.println("Game Restarted");
 	}
 	
 	/**
@@ -207,7 +206,6 @@ public class GameSurface extends PApplet{
 					textSize(18);
 					text("Press SPACE to continue.", width/2, height/3+height/12);
 					if(keyPressed){
-						System.out.println("Key Pressed");
 						restartInGame();
 					}
 				}
