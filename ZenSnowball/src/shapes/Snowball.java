@@ -30,12 +30,9 @@ public class Snowball extends Shape3D implements Collidable{
 	private static final double MOVE_SPEED = 5;
 	
 	private float x, y, z, r;
-	private boolean isColliding;
+	private boolean isColliding, isEating;
 	private boolean isGameOver;
 	private boolean isWin;
-
-	private ArrayList<Shape> obstacles;
-	private boolean onASurface = true;
 
 	
 	/**
@@ -52,6 +49,7 @@ public class Snowball extends Shape3D implements Collidable{
 		this.z = z;
 		this.r = r;
 		isColliding = false;
+		isEating = false;
 		isGameOver = false;
 	}
 	
@@ -129,7 +127,7 @@ public class Snowball extends Shape3D implements Collidable{
 	 */
 	public void act(Path path) {
 		
-		ArrayList<Collidable> obs = path.getObstacles();
+		ArrayList<Obstacle> obs = path.getObstacles();
 		
 		Collidable curColliding = null;
 		for(int i = 0; i < obs.size(); i++) {
@@ -146,15 +144,20 @@ public class Snowball extends Shape3D implements Collidable{
 			}
 		}
 		
-		if(isColliding && curColliding instanceof Rock) { //does not allow snowball to fall into obstacle from above
-			if(this.z - this.r <= curColliding.getZ()) {
-				this.z = (float)curColliding.getZ() + this.r;
+		if(isColliding){
+			if(curColliding instanceof Rock) { //does not allow snowball to fall into obstacle from above
+				isEating = false;
+				if(this.z - this.r <= curColliding.getZ()) {
+					this.z = (float)curColliding.getZ() + this.r;
+					}
+				else {
+					yVelocity = 0;
+					y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
+				}				
 			}
-			else {
-				yVelocity = 0;
-				y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
-			}	
-			
+		
+		else 
+			isEating = false;
 		}
 		
 		y += yVelocity;
@@ -226,6 +229,15 @@ public class Snowball extends Shape3D implements Collidable{
 			return false;
 		}
 	}
+	public boolean isEating(Collidable c){
+		if (c instanceof LittleSnowball && collides(c)){
+			isEating = true;
+		}
+		else
+			isEating = false;
+		return isEating;
+	}
+	
 	/**
 	 *Returns whether or not the snowball is on a surface.  
 	 * @return boolean true if on a surface, false if otherwise. 

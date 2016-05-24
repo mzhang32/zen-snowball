@@ -35,7 +35,7 @@ public class GameSurface extends PApplet{
 	private Snowball snowball;
 	//private BigSnowball bigsnowball;
 	private Path path;
-	private ArrayList<Collidable> obstacles = new ArrayList<Collidable>();
+	private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	private ArrayList<Drawable> items = new ArrayList<Drawable>();
 	private ArrayList<Tree> trees = new ArrayList<Tree>();
 
@@ -83,7 +83,7 @@ public class GameSurface extends PApplet{
 	 * Calls the act methods of all the game objects once.
 	 */
 	public void runOnce() {	 
-		path.act();
+		path.act(snowball);
 		snowball.act(path);
 		moveEnvironment();
 	}
@@ -167,12 +167,13 @@ public class GameSurface extends PApplet{
 				items.get(x).draw(this);			
 			}
 			for(int x = 0; x < obstacles.size(); x++){
-				obstacles.get(x).draw(this);
+					obstacles.get(x).draw(this);
+				
 			}
 			
 			popMatrix(); 
+				
 			
-
 			if(!snowball.isGameOver()) {
 				runOnce();
 			}	
@@ -258,7 +259,8 @@ public class GameSurface extends PApplet{
 	 */
 	public void keyPressed(){
 		
-	if( jumpCount > 0 && keyCode == ' '){			
+	if( jumpCount > 0 && keyCode == ' '){
+		//if( keyCode == ' '){		
 			System.out.println("Jump Count: " + jumpCount);
 			snowball.jump();			
 			jumpCount--;
