@@ -15,6 +15,7 @@ public interface Collidable extends Drawable{
 	/**
 	 * Detects whether the object is colliding with another collidable.
 	 * 
+	 * @param other the other object to check collision with.
 	 * @return true if the object collides with another object.
 	 */
 	boolean collides(Collidable other);

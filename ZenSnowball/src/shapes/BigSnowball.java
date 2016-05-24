@@ -15,6 +15,7 @@ import processing.core.PApplet;
 public class BigSnowball extends Obstacle{
 	
 	private float r;
+	private static final int MOVE_BY = 25;
 	
 	
 	/**
@@ -29,15 +30,26 @@ public class BigSnowball extends Obstacle{
 		this.r = r;
 	}
 	
+	/**
+	 * Moves the big snowball forward by a set amount.
+	 */
 	public void act(){	
-		super.setZ((float)(getZ() + 25));
+		super.setZ((float)(getZ() + MOVE_BY));
 	}
 	
+	/**
+	 * Returns a bounding shape half the size as the large snowball.
+	 */
 	public Bounds getBoundingShape() {
 		Point3d center = new Point3d(getX(), getY(), getZ());
-		return new BoundingSphere(center, r);
+		return new BoundingSphere(center, r/2);
 	}
 	
+	/**
+	 * Draws the large snowball.
+	 * 
+	 * @param p the PApplet used to draw the large snowball.
+	 */
 	public void draw(PApplet p){
 		p.pushStyle();
 		p.pushMatrix();

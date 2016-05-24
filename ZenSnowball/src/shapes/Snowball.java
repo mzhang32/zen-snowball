@@ -1,8 +1,6 @@
 package shapes;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
+
 import java.util.ArrayList;
 
 import javax.media.j3d.BoundingSphere;
@@ -13,14 +11,14 @@ import javax.vecmath.Point3d;
 import processing.core.PApplet;
 
 /**
- * This class represent a snowball, a jumping and rolling object that interacts with obstacles.
+ * This class represents a snowball, a jumping and rolling object that interacts with obstacles.
  * 
  * @author Michelle Z. and Waveley Q.
- * @version 05.16.2016
+ * @version 05.23.2016
  *
  */
 public class Snowball extends Shape3D implements Collidable{
-	private int score;
+
 	private int lives;
 	public static final double INIT_RADIUS = 30.0;
 	public static final double WIN_RADIUS = 60;//Set to 60
@@ -44,7 +42,7 @@ public class Snowball extends Shape3D implements Collidable{
 	 * @param r radius of the Snowball
 	 */
 	public Snowball(float x, float y, float z, float r){
-		score = 0;
+
 		lives = 3;
 		this.x = x;
 		this.y = y; 
@@ -126,6 +124,7 @@ public class Snowball extends Shape3D implements Collidable{
 	 * Gets called repeatedly to move the snowball according to the current velocities within the bounds of 
 	 * the game.
 	 * Also controls the snowball's size over time and handles collisions.
+	 * @param path the Path on which the snowball is operating on.
 	 */
 	public void act(Path path) {
 		
@@ -137,7 +136,7 @@ public class Snowball extends Shape3D implements Collidable{
 			if(this.collides(o)) {
 				isColliding = true;
 				if(r > INIT_RADIUS)
-					r -= .05;
+					r -= .5;
 				curColliding = o;
 				break;
 			}
@@ -288,8 +287,8 @@ public class Snowball extends Shape3D implements Collidable{
 	}
 	
 	/**
-	 * Brings the snowball back to life.
-	 * @param b
+	 * Set the state of the snowball as dead or live.
+	 * @param b true if alive and false is dead.
 	 */
 	public void revive(boolean b){
 		isDead = b;
@@ -349,7 +348,6 @@ public class Snowball extends Shape3D implements Collidable{
 	 * @return The number of lives left.
 	 */
 	public int getLives(){
-		System.out.println("getLives() was called");
 		return lives;
 	}
 
