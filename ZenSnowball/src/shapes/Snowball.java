@@ -34,9 +34,6 @@ public class Snowball extends Shape3D implements Collidable{
 	private boolean isGameOver;
 	private boolean isWin;
 
-	private ArrayList<Shape> obstacles;
-	private boolean onASurface = true;
-
 	
 	/**
 	 * Creates Snowball centered at (x,y, z) with radius r
@@ -52,6 +49,7 @@ public class Snowball extends Shape3D implements Collidable{
 		this.z = z;
 		this.r = r;
 		isColliding = false;
+		isEating = false;
 		isGameOver = false;
 	}
 	
@@ -146,23 +144,21 @@ public class Snowball extends Shape3D implements Collidable{
 			}
 		}
 		
-		if(isColliding && curColliding instanceof Rock) { //does not allow snowball to fall into obstacle from above
-			if(this.z - this.r <= curColliding.getZ()) {
-				this.z = (float)curColliding.getZ() + this.r;
+		if(isColliding){
+			if(curColliding instanceof Rock) { //does not allow snowball to fall into obstacle from above
+				isEating = false;
+				if(this.z - this.r <= curColliding.getZ()) {
+					this.z = (float)curColliding.getZ() + this.r;
+					}
+				else {
+					yVelocity = 0;
+					y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
+				}				
 			}
-			else {
-				yVelocity = 0;
-				y = -(float)((Rock) curColliding).getHeight() - 20; //sketchy stuff
-			}	
-			
-		}
-		else if (isColliding && curColliding instanceof LittleSnowball){
-			r++;
-			isEating = true;
-		}
 		
 		else 
 			isEating = false;
+		}
 		
 		y += yVelocity;
 		
@@ -233,12 +229,15 @@ public class Snowball extends Shape3D implements Collidable{
 			return false;
 		}
 	}
-	public boolean isEating(){
+	public boolean isEating(Collidable c){
+		if (c instanceof LittleSnowball && collides(c)){
+			isEating = true;
+		}
+		else
+			isEating = false;
 		return isEating;
 	}
-	public void setIsEating(boolean b){
-		isEating = b;
-	}
+	
 	/**
 	 *Returns whether or not the snowball is on a surface.  
 	 * @return boolean true if on a surface, false if otherwise. 

@@ -41,6 +41,8 @@ public class Path implements Drawable{
 		addObstacles(o);
 		ArrayList<Obstacle> littlesnowball = new ArrayList<Obstacle>();
 		littlesnowball.add(new LittleSnowball(getWidth()/6,0,-500,10));
+		littlesnowball.add(new LittleSnowball(-getWidth()/6, 0, -700, 10));
+		littlesnowball.add(new LittleSnowball(-getWidth()/2, 0, -300, 10));
 		addObstacles(littlesnowball);
 		tilt = 0;
 	}
@@ -61,7 +63,21 @@ public class Path implements Drawable{
 		}
 		
 	}
-		
+	public void generateLittleSnowball(){
+		double x = Math.random()*3;
+		float j = (float)(Math.random()*this.width-width/2);
+		if(x > 2){
+			addObstacles(new LittleSnowball(j, 0, -1900, 10));
+
+		}
+		else if(x > 1){
+			addObstacles(new LittleSnowball(j, 0, -1900, 10));
+
+		}
+		else if(x > 0){
+			addObstacles(new LittleSnowball(j, 0, -1900, 10));	
+		}
+		}
 	/**
 	 * Returns the width of the path.
 	 * @return the width of the path.
@@ -104,12 +120,22 @@ public class Path implements Drawable{
 			
 			obstacles.get(x).act();
 			
-			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS){
-				obstacles.remove(x);									
+			if(obstacles.get(x).getZ() > WHEN_STUFF_DISSAPEARS || s.isEating(obstacles.get(x))){
+				obstacles.remove(x);
 			}	
 			
-			if(obstacles.size() < 10)
+			if(obstacles.size() < 9){
+				double y = Math.random()*3;
+				if(y > 2){
+					generateObstacle(-2400);
+					}
+				else if(y > 1){
 				generateObstacle(-2400);
+				}
+				else if(y > 0){
+					generateLittleSnowball();
+				}
+			}
 		}
 	}
 		

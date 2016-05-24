@@ -167,12 +167,6 @@ public class GameSurface extends PApplet{
 				items.get(x).draw(this);			
 			}
 			for(int x = 0; x < obstacles.size(); x++){
-//				if(snowball.isEating()){
-//					obstacles.remove(x);
-//					x--;
-//					snowball.setIsEating(false);
-//				}
-//				else 
 					obstacles.get(x).draw(this);
 				
 			}
