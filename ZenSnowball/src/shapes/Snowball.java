@@ -202,7 +202,7 @@ public class Snowball extends Shape3D implements Collidable{
 		}
 		
 		
-		System.out.println("radius is " + r);
+		//System.out.println("radius is " + r);
 		r += .01;	
 	}
 		
